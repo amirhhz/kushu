@@ -39,7 +39,8 @@ def run_staged(port=None):
 	run("node %s/app.js %s" % (env.HOST_STAGING_DIR, env.STAGING_PORT))
 
 def deploy():
-	pass
+	run("p4 sync")
 
 def run_deployed():
-	pass
+	deploy()
+	run("cd ~/www && node app.js")
