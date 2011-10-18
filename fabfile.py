@@ -16,9 +16,9 @@ DO NOT RUN THIS FILE (%s) AS A SCRIPT ON ITS OWN!
 # DON'T TOUCH THESE
 env.MY_NAME = ""
 env.WIN_SHARED_DRIVE = ""
-env.STAGING_DIR = "/staging/%s"
+env.STAGING_DIR = "staging/%s"
 env.WIN_STAGING_DIR = "%s/%s"
-env.HOST_STAGING_DIR = "$HOME/%s/%s"
+env.HOST_STAGING_DIR = "/home/kushu/%s"
 
 env.hosts = ["kushu@kushu"]
 
@@ -36,11 +36,11 @@ def get_user_settings():
 		env.STAGING_PORT = conf.get("cred", "staging_port")
 	env.STAGING_DIR = env.STAGING_DIR % env.MY_NAME
 	env.WIN_STAGING_DIR = env.WIN_STAGING_DIR % (env.WIN_SHARED_DRIVE, env.STAGING_DIR)
-	env.HOST_STAGING_DIR = "/home/kushu%s" % env.STAGING_DIR
+	env.HOST_STAGING_DIR = env.HOST_STAGING_DIR % env.STAGING_DIR
 
 def stage():
 	get_user_settings()
-	local("cp -rpvf .*ignore app.js package.json public views %s" % env.WIN_STAGING_DIR)
+	local("cp -rpvf app.js package.json public views %s" % env.WIN_STAGING_DIR)
 
 	
 def run_staged(port=None):
