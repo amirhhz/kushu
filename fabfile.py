@@ -1,5 +1,17 @@
-from fabric.api import local, run, env
+#!/bin/env python
+from fabric.api import local, run, env, cd
 from ConfigParser import ConfigParser
+
+usage = """
+Usage (in the directory containing (%s) ...):
+	
+	fab [stage|run_staged|deploy|run_deployed]
+
+DO NOT RUN THIS FILE (%s) AS A SCRIPT ON ITS OWN! 
+
+	e.g. $ fab run_stage
+""" % (__file__, __file__)
+
 
 # DON'T TOUCH THESE
 env.MY_NAME = ""
@@ -28,19 +40,24 @@ def get_user_settings():
 
 def stage():
 	get_user_settings()
-	local("cp -rpvf app.js package.json public views %s" % env.WIN_STAGING_DIR)
-	run("cd %s" % env.HOST_STAGING_DIR)
-	run("cd %s; npm install -d" % env.HOST_STAGING_DIR)
+	local("cp -rpvf .*ignore app.js package.json public views %s" % env.WIN_STAGING_DIR)
+
 	
 def run_staged(port=None):
-	stage()
+	get_user_settings()
 	if port:
 		env.STAGING_PORT = port
-	run("node %s/app.js %s" % (env.HOST_STAGING_DIR, env.STAGING_PORT))
+	with cd("%s" % env.HOST_STAGING_DIR):
+		run("npm install -d")
+		run("forever -w app.js %s" % (env.STAGING_PORT))
 
 def deploy():
+	print "NOTE: Only work submitted to Perforce is deployed to Kushu server!"
 	run("p4 sync")
 
 def run_deployed():
-	deploy()
 	run("cd ~/www && node app.js")
+	
+if __name__ == "__main__":
+	print usage
+
