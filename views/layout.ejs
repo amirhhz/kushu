@@ -26,6 +26,7 @@
 				<ul>
 					<li><a href="/deck">Decks</a></li>
 					<% if (!session.username) { %>
+						<li><a href="/register">Register</a></li>
 						<li><a href="/login">Login</a></li>
 					<% } else { %>
 						<li><a href="/logout">Logout (<%= session.username %>)</a></li>

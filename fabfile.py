@@ -48,7 +48,7 @@ def run_staged(port=None):
 	if port:
 		env.STAGING_PORT = port
 	with cd("%s" % env.HOST_STAGING_DIR):
-		run("npm install -d")
+		run("npm install")
 		run("forever -w app.js %s" % (env.STAGING_PORT))
 
 def deploy():

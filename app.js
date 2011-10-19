@@ -34,7 +34,8 @@ app.configure('production', function(){
 app.dynamicHelpers({
 	session: function (req, res) {
 		return req.session;
-	}
+	},
+	messages: require('express-messages')
 });
 
 // Routes
