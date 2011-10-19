@@ -40,7 +40,7 @@ def get_user_settings():
 
 def stage():
 	get_user_settings()
-	local("cp -rpvf app.js package.json public views %s" % env.WIN_STAGING_DIR)
+	local("cp -rpvf routes.js app.js package.json public views %s" % env.WIN_STAGING_DIR)
 
 	
 def run_staged(port=None):
