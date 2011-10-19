@@ -13,10 +13,10 @@
 
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="/css/style.css">
 
-	<script src="js/libs/modernizr-2.0.min.js"></script>
-	<script src="js/libs/respond.min.js"></script>
+	<script src="/js/libs/modernizr-2.0.min.js"></script>
+	<script src="/js/libs/respond.min.js"></script>
 </head>
 <body>
 	<div id="header-container">
@@ -24,8 +24,12 @@
 			<h1 id="title"><%= title %></h1>
 			<nav>
 				<ul>
-					<li><a href="#">Decks</a></li>
-					<li><a href="#">Login</a></li>
+					<li><a href="/deck">Decks</a></li>
+					<% if (!session.username) { %>
+						<li><a href="/login">Login</a></li>
+					<% } else { %>
+						<li><a href="/logout">Logout (<%= session.username %>)</a></li>
+					<% } %>
 				</ul>
 			</nav>
 		</header>
@@ -38,7 +42,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
 
-<script src="js/script.js"></script>
+<script src="/js/script.js"></script>
 <script>
 	var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']]; // Change UA-XXXXX-X to be your site's ID
 	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
