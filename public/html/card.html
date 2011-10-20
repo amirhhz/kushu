@@ -8,12 +8,12 @@
 	<script type="text/javascript" src="inc/scroller.js"></script>
 </head>
 <body>
-
-<div align="center">
+	
+<div id="CardContainer">
 	<div id="myScroll">
   
 		<!-- Question 1 -->
-		<div class="scrollEl" style="background-image: url('images/cardnew.jpg'); background-size: 100%;">
+		<div class="scrollEl">
 			<div class="questionBox">
 				<div class="cardQuestion">This is Question 1!</div>
 			</div>
@@ -24,7 +24,7 @@
 		</div>
 		
 		<!-- Answer 1 -->
-		<div class="scrollEl" style="background-image: url('images/cardnew.jpg'); background-size: 100%;">
+		<div class="scrollEl">
 			<div class="questionBox">
 				<div class="cardQuestion">This is Question 1!</div>
 			</div>
@@ -35,7 +35,7 @@
 		</div>
 		
 		<!-- Question 2 -->
-		<div class="scrollEl" style="background-image: url('images/cardnew.jpg'); background-size: 100%;">
+		<div class="scrollEl">
 			<div class="questionBox">
 				<div class="cardQuestion">This is Question 2!</div>
 			</div>
@@ -46,7 +46,7 @@
 		</div>
 		
 		<!-- Answer 2 -->
-		<div class="scrollEl" style="background-image: url('images/cardnew.jpg'); background-size: 100%;">
+		<div class="scrollEl">
 			<div class="questionBox">
 				<div class="cardQuestion">This is Question 2!</div>
 			</div>
@@ -56,22 +56,57 @@
 			</div>	
 		</div>
 		
+		<!-- Question 3 -->
+		<div class="scrollEl">
+			<div class="questionBox">
+				<div class="cardQuestion">This is Question 3!</div>
+			</div>
+		
+			<div class="answerBox">
+				<div class="cardAnswer"></div>
+			</div>	
+		</div>
+		
+		<!-- Answer 3 -->
+		<div class="scrollEl">
+			<div class="questionBox">
+				<div class="cardQuestion">This is Question 3!</div>
+			</div>
+		
+			<div class="answerBox">
+				<div class="cardAnswer">This is Answer 3!</div>
+			</div>	
+		</div>
+		
 	</div>
-  
-  <div id="controls">
-    <div class="next" align="center" onclick="getCorrectButton()">Get Answer!</div>
-  </div>
- </div>
+	
+	<div id="controlsContainer">
+		<div id="nextCardButton">
+			<div id="controls">
+			  	<div class="buttons">
+			  		<a class="next" onclick="showHideDifficultyButtons()"><div align="center">Show Answer!</div></a>
+			   </div>
+			</div>
+		</div>
+		
+	  	<div id="difficultyButtons">
+	  		<div id="controls">
+			  	<div class="buttons">
+					<div id="correctButton"><a onclick="updateCorrectButton(0)" class="positive"><div align="center">Correct!</div></a></div>
+					<div id="almostButton"><a onclick="updateCorrectButton(1)" class="almost"><div align="center">Almost!</div></a></div>
+					<div id="incorrectButton"><a onclick="updateCorrectButton(2)" class="negative"><div align="center">Incorrect!</div></a></div>
+				</div>
+			</div>
+		</div>
+		
+	  	<div class="buttons">
+	  		<a href="#" onclick="window.location.reload()" class="negative">
+		       <div align="center">Save and Exit</div>
+		    </a>
+		</div>
+	</div>
  
- <div class="buttons">
-    <button type="submit" class="positive">
-        Save
-    </button>    <a href="/password/reset/">
-        Change Password
-    </a>    <a href="#" class="negative">
-        Cancel
-    </a>
-</div>
+ </div>
 
 </body>
 </html>
