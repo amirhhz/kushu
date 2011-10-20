@@ -1,10 +1,15 @@
+<center>
 <%- messages() %>
+<h1>Kushu</h1>
 <form action="/register" method="post">
-	<label for="username">Your Kushu username</label>
+	<label for="username">Choose a username: </label>
 	<input name="username" id="username" type="text" />
-	<br />
-	<label for="password">Choose a password</label>
+	<br /><br />
+	<label for="password">Choose a password: </label>
 	<input name="password" id="password" type="password" />
+	<br />
+	<br />
 	
-	<input name="register" id="register" value="Register!" type="submit" />
+	<input class="myButton" value="Register" type="submit"/>
 </form>
+</center>

@@ -14,6 +14,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
 	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/style1.css">
 
 	<script src="/js/libs/modernizr-2.0.min.js"></script>
 	<script src="/js/libs/respond.min.js"></script>
@@ -24,22 +25,22 @@
 			<h1 id="title"><%= title %></h1>
 			<nav>
 				<ul>
-					<li><a href="/deck">Decks</a></li>
-					<% if (!session.username) { %>
-						<li><a href="/register">Register</a></li>
-						<li><a href="/login">Login</a></li>
-					<% } else { %>
-						<li><a href="/logout">Logout (<%= session.username %>)</a></li>
-					<% } %>
+					<li><a href="/index">Home</a></li>
+					<li><a href="/about">About</a></li>
+					
 				</ul>
 			</nav>
 		</header>
 	</div>
     <%- body %>
+	
+	<!-- getting rid of footer
 	<div id="footer-container">
 		<footer class="wrapper">
-			<h3>&copy; 2011 Team Kushu at Caplin Systems</h3>
+			<p>&copy; 2011 Team Kushu at Caplin Systems</p>
 	</div>
+	-->
+	
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
 

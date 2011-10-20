@@ -1,20 +1,20 @@
-	<div id="main" class="wrapper">
-		<aside>
-			<h3>There is a lot of work to do!</h3>
-		</aside>
-		<article>
-			<p>In the beginning ...</p>
-			<header>
-				<h2>There was <%= title %></h2>
-				<p>Kushu helps to learn.</p>
-			</header>
-			<h3>How?</h3>
-				<p>Spaced repetition and a clever algorithm</p>	
-			<h3>Why does it work?</h3>
-				<p>Clever scientists with journal papers said so.</p>
-			<footer>
-			<h3>About the authors</h3>
-				<p>Amir, Bodrul, Dan, James</p>
-			</footer>
-		</article>
-	</div>
+<center>
+<div id="content">
+<h1>Welcome To KUSHU</h1>
+
+
+<button class="deckOptions" onclick="location.href='/choiceOfDecks'">Decks</button>
+</br>
+</br>
+<% if (session.username) { %>
+	<button class="deckOptions" onclick="location.href='/logout'">Logout</button>
+<% } else { %>
+	<button class="deckOptions" onclick="location.href='/register'">Register</button>
+	</br>
+	</br>
+	<button class="deckOptions" onclick="location.href='/login'">Login</button>
+	
+<% }%>
+
+</div>
+</center>
