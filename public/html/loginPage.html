@@ -3,27 +3,36 @@
 <head>
 <link rel="stylesheet" type="text/css" href="style1.css" />	
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<script language="javascript" src=funcs.js></script>
+
 <title>Kushu Login</title>
 </head>
 <body>
 <img src="orange-background.jpg" alt="background image" id="bg" />
 
-<!-- bill -->
-
 <div id="content">
 <h1>Kushu Login</h1>
 
+<div id="divWrongPassword" align ="center">
+</br>
+</div>
+
 <center>
 <form>
-<label for="username">Username:</label> <input type="text" id="username"  /><br />
-<br />
-<label for="Password">Password:</label><input type="text" id="password"  /></br>
-</form> 
 </br>
-<button class="myButton" onClick="loadKushu()">login</button>
+<label for="username">Username: </label> <input type="text" id="username"  /><br />
+<br />
+<label for="Password">Password: </label><input type="password" type="text" id="password"  /></br>
+</br>
+
+</form> 
+
+<button class="myButton" onClick="checkPassword()">login</button>
 
 </center>
 
 </div>
+</body>
 </body>
 </html>
