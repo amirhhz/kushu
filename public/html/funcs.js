@@ -17,7 +17,7 @@
 		var pass = document.getElementById("password").value;
 		
 		if (passwordArray[login] == pass)
-			document.location.pathname = "DeckChoice.html";
+			document.location.pathname = "html/DeckChoice.html";
 			
 		else
 			incorrectPassword();
