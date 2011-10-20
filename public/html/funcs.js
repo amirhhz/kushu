@@ -34,6 +34,7 @@
 	 	this.question = question;
 	 	this.answer = answer;
 	 	this.difficulty = 3;
+	 	
 	}
 
 	var cards = new Array(10);
@@ -48,6 +49,48 @@
 	cards[8] = new Card(8,1,"Albania", "Tirana");
 	cards[9] = new Card(9,1,"Phillippines", "Manila");
 	cards[10] = new Card(10,1,"Uruguay", "Montevideo");
+	
+	var currentQ = 1;
+	var currentA = 1;
+	var count = 1;
+	
+	function getNextQuestion(){
+		return cards[currentQ++].question; 
+	}
+	
+	function getNextAnswer(){
+		return cards[currentA++].answer;
+	}
+	
+	/*
+	 * this changes the "question div" in the temp quiz page flipping from question to answer
+	 */
+	function doNext(){
+		var input2;
+		var QA;
+		
+		if(currentA == cards.length)
+			document.getElementById("question").innerHTML = "END OF SESSION";
+		
+		else if(count % 2 == 0)
+		{	document.getElementById("question").innerHTML = "<font size='13'>" + getNextAnswer() + "</font> </br></br> " +
+			"<button class='myButton' onClick='doNext()'>Incorrect</button>" +
+			"<button class='myButton' onClick='doNext()'>Nearly</button>" +
+			"<button class='myButton' onClick='doNext()'>Correct</button>" ;
+			count++;
+		}
+			
+		else
+		{	
+			document.getElementById("question").innerHTML = "<font size='13'>" + getNextQuestion() + "</font> </br></br> " +
+			"<button class='myButton' onClick='doNext()'>Get Answer</button>";
+			count++;
+		}
+			
+		
+	}
+
+	
 	
 	
 	

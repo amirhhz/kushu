@@ -71,3 +71,40 @@ font-family:"arial", serif;
 	position:relative;
 	top:1px;
 }
+
+.deckOptions {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #21459e) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #21459e 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#21459e');
+	background-color:#ededed;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #6b6b6b;
+	display:inline-block;
+	color:#141314;
+	font-family:arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:8px 68px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+}.deckOptions:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #21459e), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #21459e 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#21459e', endColorstr='#ededed');
+	background-color:#21459e;
+}.deckOptions:active {
+	position:relative;
+	top:1px;
+}
+
+<!-- temp styles -->
+question
+{
+	font-size:200%;
+}
+
