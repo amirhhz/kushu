@@ -213,16 +213,20 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 body{
 	font-family:Helvetica, Helvetica Neue, Arial, sans-serif;
+	background-image: url("/images/orange-background.jpg");
+	background-size: cover;
 }
 
 .wrapper{
 	margin:auto;
-	width:960px;
+	width:90%;
 }
 
 #header-container{
 	background-color:#f16529;
-	height:130px;
+	background-image: url("/images/baby.jpg");
+	background-repeat:no-repeat;
+	height:100px;
 	border-bottom:20px solid #e44d26;
 	margin-bottom:50px;
 	-webkit-box-shadow:0 40px 40px -40px #AAA;
@@ -236,14 +240,15 @@ h3{font-size: 30px;}
 #title, h2, h3{font-weight:normal;}
 
 #title{
-	font-size: 60px;
+	font-size: 30px;
+	margin-left:45px;
 	color:white;
 	float:left;
 }
 
 header nav{
 	float:right;
-	margin-top:100px;
+	margin-top:70px;
 }
 
 header nav ul li{
