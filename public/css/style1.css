@@ -56,34 +56,6 @@ font-family:"arial", serif;
 
 }
 
-.myButton {
-	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
-	box-shadow:inset 0px 1px 0px 0px #ffffff;
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #244be3) );
-	background:-moz-linear-gradient( center top, #ededed 5%, #244be3 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#244be3');
-	background-color:#ededed;
-	-moz-border-radius:9px;
-	-webkit-border-radius:9px;
-	border-radius:9px;
-	border:1px solid #666366;
-	display:inline-block;
-	color:#292029;
-	font-family:Arial Black;
-	font-size:17px;
-	font-weight:bold;
-	padding:7px 42px;
-	text-decoration:none;
-}.myButton:hover {
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #244be3), color-stop(1, #ededed) );
-	background:-moz-linear-gradient( center top, #244be3 5%, #ededed 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#244be3', endColorstr='#ededed');
-	background-color:#244be3;
-}.myButton:active {
-	position:relative;
-	top:1px;
-}
 
 .deckOptions {
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -103,6 +75,7 @@ font-family:"arial", serif;
 	font-size:15px;
 	font-weight:bold;
 	padding:8px 68px;
+	width:200px;
 	text-decoration:none;
 	text-shadow:1px 1px 0px #ffffff;
 }.deckOptions:hover {
