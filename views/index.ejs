@@ -7,6 +7,9 @@
 </br>
 </br>
 <% if (session.username) { %>
+	<button class="deckOptions" onclick="location.href='/makeADeck'">Create a Deck</button>
+	</br>
+	</br>
 	<button class="deckOptions" onclick="location.href='/logout'">Logout</button>
 <% } else { %>
 	<button class="deckOptions" onclick="location.href='/register'">Register</button>
