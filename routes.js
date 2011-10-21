@@ -36,8 +36,8 @@ module.exports = function (app) {
 		res.end();
 	});
 	
-	app.get("/choiceOfDecks", function (req, res) {
-		res.render("choiceOfDecks", {title: "Decks"});
+	app.get("/choices", function (req, res) {
+		res.render("choices", {title: "Decks"});
 	});
 	
 	app.get("/makeADeck", function (req, res) {
@@ -80,6 +80,18 @@ module.exports = function (app) {
 			res.send(deck);
 		}
 		res.render('deck', {title: "DECK No. " + req.params.deckId, deck: deck});
+	});
+	
+	app.get("/decks", function (req, res) {
+		var decks = [
+			{id: "1", name: "Capital Cities", summary: "stuff"},
+			{id: "2", name: "French Nouns", summary: "french stuff"},
+			{id: "3", name: "Staff Photos", summary: "staff stuff"}
+		];
+		if (req.xhr) {
+			res.send(decks);
+		}
+		res.render('decks', {title: "Decks", decks: decks});
 	});
 	
 };
