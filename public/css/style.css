@@ -240,8 +240,9 @@ h3{font-size: 30px;}
 #title, h2, h3{font-weight:normal;}
 
 #title{
-	font-size: 30px;
+	font-size: 24px;
 	margin-left:45px;
+	margin-top:45px;
 	color:white;
 	float:left;
 }
