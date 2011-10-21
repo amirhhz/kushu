@@ -54,9 +54,13 @@ def run_staged(port=None):
 def deploy():
 	print "NOTE: Only work submitted to Perforce is deployed to Kushu server!"
 	run("p4 sync")
+	run("cd ~/www && npm install")
 
 def run_deployed():
 	run("cd ~/www && node app.js")
+
+def test():
+	run("cd ~/www && nodeunit test")
 	
 if __name__ == "__main__":
 	print usage
