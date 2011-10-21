@@ -1,25 +1,19 @@
 <center>
-<div id="content">
 <h1>Welcome To KUSHU</h1>
 
+<div id="content">
 
 <button class="deckOptions" onclick="location.href='/decks'">Decks</button>
-</br>
-</br>
+
 <% if (session.username) { %>
 	<button class="deckOptions" onclick="location.href='/makeADeck'">Create a Deck</button>
-	</br>
-	</br>
+	
 	<button class="deckOptions" onclick="location.href='/logout'">Logout</button>
-	</br>
-	</br>
+
 <% } else { %>
 	<button class="deckOptions" onclick="location.href='/register'">Register</button>
-	</br>
-	</br>
+
 	<button class="deckOptions" onclick="location.href='/login'">Login</button>
-	</br>
-	</br>
 	
 <% }%>
 
