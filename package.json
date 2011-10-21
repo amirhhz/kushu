@@ -7,5 +7,6 @@
     , "ejs": ">= 0.0.1"
     , "express-messages": ">= 0.0.2"
     , "mysql": ">= 0.9.4"
+    , "nodeunit": ">= 0.5.5"
   }
 }
