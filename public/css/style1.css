@@ -22,13 +22,13 @@ font-family:"arial black", serif;
 label
 {
 	font-family:"arial black", serif;
-	font-size:150%;
+	font-size:135%;
 }
 
 a1
 {
 	font-family:"arial black", serif;
-	font-size:125%;
+	font-size:120%;
 	color:blue;
 }
 
@@ -55,7 +55,6 @@ font-family:"arial", serif;
 
 
 }
-
 
 .deckOptions {
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
