@@ -70,6 +70,10 @@ module.exports = function (app) {
 	app.get("/deck/:deckId", function (req, res) {
 		var deck = [
 			{q: "Capital of France", a: "Paris"},
+			{q: "Capital of Austraila", a: "Canberra"},
+			{q: "Capital of Estonia", a: "Tallinn"},
+			{q: "Capital of England", a: "London"},
+			{q: "Capital of Yemen", a: "Sana'a"},
 			{q: "Capital of Germany", a: "Berlin"}
 		];
 		if (req.xhr) {
