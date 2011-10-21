@@ -5,7 +5,7 @@ module.exports = function (app) {
 
 	app.get('/', function(req, res){
 	  res.render('index', {
-	    title: 'KUSHU'
+	    title: 'Home'
 	  });
 	});
 
@@ -14,7 +14,7 @@ module.exports = function (app) {
 			res.redirect("home");
 			res.end();
 		} else {
-			res.render("login", {title: "Log in to Kushu"});			
+			res.render("login", {title: "Login"});			
 		}
 	});
 	
@@ -36,8 +36,24 @@ module.exports = function (app) {
 		res.end();
 	});
 	
+	app.get("/choiceOfDecks", function (req, res) {
+		res.render("choiceOfDecks", {title: "Decks"});
+	});
+	
+	app.get("/makeADeck", function (req, res) {
+		res.render("makeADeck", {title: "Create"});
+	});
+	
+	app.get("/index", function (req, res) {
+		res.render("index", {title: "Home"});
+	});
+	
+	app.get("/about", function (req, res) {
+		res.render("about", {title: "About"});
+	});
+	
 	app.get("/register", function (req, res){
-		res.render("register", {title: "Register for Kushu"});
+		res.render("register", {title: "Register"});
 	});
 
 	app.post("/register", function (req, res){
