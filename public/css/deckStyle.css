@@ -305,18 +305,17 @@ body{
     }
 
 
-/* Portrait */
+/*
 @media screen and (orientation:portrait) {
     .buttons a, .buttons button{
     	height:100px;
     	font-size: 300%;
     }
-/* Landscape */
 @media screen and (orientation:landscape) {
     .buttons a, .buttons button{
     	height:100px;
     	font-size: 300%;
     }
 }
-
+*/
 
