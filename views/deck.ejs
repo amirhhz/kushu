@@ -3,60 +3,61 @@
 <script>
 	setDeckLength(<%=deck.length %>);
 </script>
-
-<div id="CardContainer">
-	<div id="myScroll">
-  		
-  		<% for(var i=0; i<deck.length; i++) { %>
-			<!-- Question -->
-			<div class="scrollEl">
-				<div class="questionBox">
-					<div class="cardQuestion"><%= deck[i].q %></div>
+<div id="pageContainer">
+	<div id="CardContainer">
+		<div id="myScroll">
+	  		
+	  		<% for(var i=0; i<deck.length; i++) { %>
+				<!-- Question -->
+				<div class="scrollEl">
+					<div class="questionBox">
+						<div class="cardQuestion"><%= deck[i].q %></div>
+					</div>
+				
+					<div class="answerBox">
+						<div class="cardAnswer"></div>
+					</div>	
 				</div>
-			
-				<div class="answerBox">
-					<div class="cardAnswer"></div>
-				</div>	
+				
+				<!-- Answer -->
+				<div class="scrollEl">
+					<div class="questionBox">
+						<div class="cardQuestion"><%= deck[i].q %></div>
+					</div>
+				
+					<div class="answerBox">
+						<div class="cardAnswer"><%= deck[i].a %></div>
+					</div>	
+				</div>
+			<% } %>
+		</div>
+		
+		<div id="controlsContainer">
+			<div id="nextCardButton">
+				<div id="controls">
+				  	<div class="buttons">
+				  		<a class="next" onclick="showHideDifficultyButtons()"><div align="center">Show Answer!</div></a>
+				   </div>
+				</div>
 			</div>
 			
-			<!-- Answer -->
-			<div class="scrollEl">
-				<div class="questionBox">
-					<div class="cardQuestion"><%= deck[i].q %></div>
+		  	<div id="difficultyButtons">
+		  		<div id="controls">
+				  	<div class="buttons">
+						<div id="correctButton"><a onclick="updateCorrectButton(0)" class="positive"><div align="center">Correct!</div></a></div>
+						<div id="almostButton"><a onclick="updateCorrectButton(1)" class="almost"><div align="center">Almost!</div></a></div>
+						<div id="incorrectButton"><a onclick="updateCorrectButton(2)" class="negative"><div align="center">Incorrect!</div></a></div>
+					</div>
 				</div>
-			
-				<div class="answerBox">
-					<div class="cardAnswer"><%= deck[i].a %></div>
-				</div>	
 			</div>
-		<% } %>
-	</div>
+			
+		  	<div class="buttons">
+		  		<a href="#" onclick="window.location.reload()" class="negative">
+			       <div align="center">Save and Exit</div>
+			    </a>
+			</div>
+		</div>
 	
-	<div id="controlsContainer">
-		<div id="nextCardButton">
-			<div id="controls">
-			  	<div class="buttons">
-			  		<a class="next" onclick="showHideDifficultyButtons()"><div align="center">Show Answer!</div></a>
-			   </div>
-			</div>
-		</div>
-		
-	  	<div id="difficultyButtons">
-	  		<div id="controls">
-			  	<div class="buttons">
-					<div id="correctButton"><a onclick="updateCorrectButton(0)" class="positive"><div align="center">Correct!</div></a></div>
-					<div id="almostButton"><a onclick="updateCorrectButton(1)" class="almost"><div align="center">Almost!</div></a></div>
-					<div id="incorrectButton"><a onclick="updateCorrectButton(2)" class="negative"><div align="center">Incorrect!</div></a></div>
-				</div>
-			</div>
-		</div>
-		
-	  	<div class="buttons">
-	  		<a href="#" onclick="window.location.reload()" class="negative">
-		       <div align="center">Save and Exit</div>
-		    </a>
-		</div>
-	</div>
-
- </div>
+	 </div>
+	 </div>
  </div>

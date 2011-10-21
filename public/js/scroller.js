@@ -9,10 +9,7 @@ var HEIGHT = 386;
 
 var selectedButton;
 
-if(windowWidth < 320){
-	WIDTH = 240;
-	HEIGHT = 144;
-}else if(windowWidth < 480){
+if(windowWidth < 480){
 	WIDTH = 320;
 	HEIGHT = 192;
 }else if(windowWidth < 640){
