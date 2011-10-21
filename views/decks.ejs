@@ -1,0 +1,14 @@
+<center>
+
+<% for(var i = 0; i < decks.length; i++) { %>
+
+<form action="/deck/<%=decks[i].id%>">
+	<input class="deckOptions" value="<%=decks[i].name%>" type="submit"/>
+</form>
+
+<br/>
+
+<% } %>
+
+
+</center>
