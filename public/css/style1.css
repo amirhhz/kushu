@@ -57,6 +57,8 @@ font-family:"arial", serif;
 }
 
 .deckOptions {
+	margin-bottom:15px;	
+	display:block;
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -68,7 +70,6 @@ font-family:"arial", serif;
 	-webkit-border-radius:6px;
 	border-radius:6px;
 	border:1px solid #6b6b6b;
-	display:inline-block;
 	color:#141314;
 	font-family:arial;
 	font-size:15px;
