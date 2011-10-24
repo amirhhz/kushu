@@ -14,8 +14,7 @@ module.exports = testCase({
     
     testGetDeckWithIdOne: function(test) {
         models.getRowsFromTableWhere("Deck","DECK_ID", 1, function(result){
-        	var expected = [ { DECK_ID: 1, deck_name: 'Capitals', reversible: 1 } ];
-        	test.deepEqual(expected, result);
+        	test.deepEqual("Capitals", result[0].deck_name);
         	test.done();
         }); 
     },
