@@ -50,7 +50,7 @@ body, button, input, select, textarea { font-family: sans-serif; color: #222; }
    ========================================================================== */
 
 a { color: #00e; }
-a:visited { color: #551a8b; }
+a:visited { color: black; }
 a:focus { outline: thin dotted; }
 
 /* Improve readability when focused and hovered in all browsers: people.opera.com/patrickl/experiments/keyboard/test */
@@ -261,6 +261,10 @@ nav a{
 	color:white;
 	text-decoration:none;
 	background-color:#e44d26;
+}
+
+nav a:visited{
+	color:white;
 }
 
 aside{
