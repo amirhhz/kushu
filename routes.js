@@ -75,9 +75,26 @@ module.exports = function (app) {
 	});
 	
 	app.get("/decks", function (req, res) {
+		
+		var queryMap = {
+			allDecks: "SELECT * FROM Deck ORDER BY DECK_ID ASC;",
+			cardCounts: "SELECT DECK_ID, COUNT(*) AS card_count FROM Card GROUP BY DECK_ID ORDER BY DECK_ID ASC;"
+		};
+		
+		app.models.performQueries(queryMap, function(result) {
+			var decks = result["allDecks"];
+			var countResults = result["cardCounts"];
+			
+			for(var index in decks){
+				decks[index].card_count = countResults[index].card_count;
+			}
+			
+			res.render("decks", {decks: decks, title: "Decks"});
+		});
+		/*
 		app.models.getAllFromTableQuery("Deck", function(result){
 			res.render("decks", {decks: result, title: "Decks"});
-		});
+		});*/
 	});	
 };
 
