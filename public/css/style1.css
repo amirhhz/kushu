@@ -156,6 +156,7 @@ p{
 
 /* BUTTONS */#listDeckControls a, #listDeckControls button{
 	    display:inline;
+	    float:left;
 	    background-color:#f5f5f5;
 	    border:1px solid #dedede;
 	    border-top:1px solid #eee;
@@ -168,9 +169,10 @@ p{
 	    cursor:pointer;
 	    padding:5px 5px 6px 5px; /* Links */
 	   	margin-right: 2px;
-	}
+}
 #listDeckControls button{
     width:auto;
+    float:none;
     overflow:visible;
     padding:4px 10px 3px 7px; /* IE6 */
 }
