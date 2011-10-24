@@ -1,28 +1,25 @@
 
-
-
-//deckstate
-//revision-date ¬¬¬ current card/e for end ¬¬¬ cards in group 1 ¬¬¬ cards in group 2 ¬¬¬ cards in group 3 
-
-var deckState = {
-	state: {
-		revision: {
-			rev_no: 0,
-			rev_date: "",
-			rev_finished: false
+exports.createEmptyDeckState = function (){
+	var emptyDeck = {
+		state: {
+			revision: {
+				rev_no: 1,
+				rev_finished: false
+			},
+			next_due: {
+				group: 0, card: 0
+			},
+			groups: [
+				[],
+				[],
+				[]
+			],		
 		},
-		next_due: {
-			group: 0, card: 0
-		},
-		groups: [
-			[1,2,3,4],
-			[5,6,7,8],
-			[9,10]
-		],		
-	},
-	answerQueue: []
-};
-
+		answerQueue: []
+	};
+	return emptyDeck;
+	
+}
 
 exports.getCurrentCard = function(stateOfDeck){
 	

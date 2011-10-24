@@ -2,6 +2,7 @@
 var MYSQL = require('mysql');
 var db; 
 exports.db = db;
+var leitner = require("./leitner");
 
 exports.performQueries = function(queryMap, callback)
 {
@@ -36,6 +37,35 @@ exports.getRowsFromTableWhere = function(table, field,  value, callback){
 		if(err){
 			throw err;
 		}	
+		callback(result);
+	});
+}
+
+exports.insertDeckState = function(userId, deckId) {
+
+	exports.getRowsFromTableWhere("Card", "DECK_ID", deckId, function(result){
+		var group = [];
+		for (var card in result) {
+			group.push(result[card].CARD_ID);
+		}
+		var deckState = leitner.createEmptyDeckState();
+		deckState.state.groups[0] = group;
+		console.log(JSON.stringify(deckState));
+		db.query("INSERT INTO DeckState (USER_ID, DECK_ID, date_modified, serialized_state) VALUES (" + 
+			userId + ", " + deckId + ", " + "CURRENT_TIMESTAMP, ?);", [JSON.stringify(deckState)]);
+		
+	});	
+}
+
+exports.updateDeckState = function(userId, deckId, deckState) {
+
+	db.query("UPDATE DeckState SET serialized_state=?, date_modified=CURRENT_TIMESTAMP WHERE USER_ID=" + 
+			userId + " AND DECK_ID=" + deckId + ";", [JSON.stringify(deckState)]);
+}
+
+exports.getDeckState = function(userId, deckId, callback) {
+
+	db.query("SELECT * FROM DeckState WHERE USER_ID="+userId+" AND DECK_ID="+deckId+";", function(err, result) {
 		callback(result);
 	});
 }

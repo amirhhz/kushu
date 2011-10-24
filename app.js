@@ -39,6 +39,7 @@ app.dynamicHelpers({
 	messages: require('express-messages')
 });
 
+models.startClient("kushu_test");
 app.models = models;
 
 // Routes
