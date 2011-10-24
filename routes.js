@@ -96,6 +96,21 @@ module.exports = function (app) {
 		res.render('deck', {title: "DECK No. " + req.params.deckId, deck: deck});
 	});
 	
+	app.get("/browse/:deckId", function (req, res) {		
+		var deck = [
+			{q: "Capital of France", a: "Paris"},
+			{q: "Capital of Austraila", a: "Canberra"},
+			{q: "Capital of Estonia", a: "Tallinn"},
+			{q: "Capital of England", a: "London"},
+			{q: "Capital of Yemen", a: "Sana'a"},
+			{q: "Capital of Germany", a: "Berlin"}
+		];
+		if (req.xhr) {
+			res.send(deck);
+		}
+		res.render('browse', {title: "DECK No. " + req.params.deckId, deck: deck});
+	});
+	
 	app.get("/decks", function (req, res) {
 		
 		var queryMap = {
