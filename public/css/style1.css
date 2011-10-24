@@ -171,8 +171,9 @@ p{
 	   	margin-right: 2px;
 }
 #listDeckControls button{
-    width:auto;
+    width:250px;
     float:none;
+    line-height:200%;
     overflow:visible;
     padding:4px 10px 3px 7px; /* IE6 */
 }

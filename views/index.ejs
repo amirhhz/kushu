@@ -3,19 +3,25 @@
 
 <div id="content">
 
-<button class="deckOptions" onclick="location.href='/decks'">Decks</button>
+<div id="listDeckControls">
+
+<button onclick="location.href='/decks'">Decks</button>
+</br>
+</br>
 
 <% if (session.username) { %>
-	<button class="deckOptions" onclick="location.href='/makeADeck'">Create a Deck</button>
-	
-	<button class="deckOptions" onclick="location.href='/logout'">Logout</button>
+	<button onclick="location.href='/makeADeck'">Create a Deck</button>
+	</br>
+	</br>
+	<button onclick="location.href='/logout'">Logout</button>
 
 <% } else { %>
-	<button class="deckOptions" onclick="location.href='/register'">Register</button>
-
-	<button class="deckOptions" onclick="location.href='/login'">Login</button>
+	<button onclick="location.href='/register'">Register</button>
+	</br>
+	</br>
+	<button onclick="location.href='/login'">Login</button>
 	
 <% }%>
-
+</div>
 </div>
 </center>
