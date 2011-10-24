@@ -213,8 +213,6 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 body{
 	font-family:Helvetica, Helvetica Neue, Arial, sans-serif;
-	background-image: url("/images/orange-background.jpg");
-	background-size: cover;
 }
 
 .wrapper{

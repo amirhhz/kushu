@@ -24,26 +24,26 @@
 	<script type="text/javascript" src="/js/scroller.js"></script>
 </head>
 <body>
-	<div id="header-container">
-		<header class="wrapper">
-			<h1 id="title"><%= title %></h1>
-			<nav>
-				<ul>
-					<li><a href="/index">Home</a></li>
-					<li><a href="/about">About</a></li>
-					
-				</ul>
-			</nav>
-		</header>
-	</div>
+	<div id="mainContainer">
+		<div id="headerContainer">
+			<div id="logo"><a href="/index"><img src="/images/header_logo.png" alt="KUSHU!"></a></div>
+			<div id="headerNavigationContainer">
+				<div id="topOfHeader">Welcome: James Seymour</div>
+				<div id="headerNavigation">
+					<a href="/index">Home</a><img src="/images/navigation_seperator.png"><a href="/about">About</a><img src="/images/navigation_seperator.png"><a href="/decks">Decks</a><img src="/images/navigation_seperator.png"><a href="/contact">Contact</a>
+				</div>
+			</div>
+		</div>
+		<div id="bodyContainer">
+			<div id="contentContainer">
     <%- body %>
-	
-	<!-- getting rid of footer
-	<div id="footer-container">
-		<footer class="wrapper">
-			<p>&copy; 2011 Team Kushu at Caplin Systems</p>
+			</div>
+		</div>	
 	</div>
-	-->
+	<div id="footerContainer">
+		<div id="leftFooter">© 2011 Team Kushu!</div>
+		<div id="rightFooter"><a href="index.html">Home</a> | <a href="#">About</a> | <a href="#">Contact</a></div>
+	</div>
 	
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
 

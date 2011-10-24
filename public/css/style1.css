@@ -93,6 +93,194 @@ font-family:"arial", serif;
 	color:white;
 }
 
+html, body{
+	height:100%;
+	margin:0px;
+	padding:0px;
+	font-family: arial,sans-serif;
+}
+
+/*Opera Fix*/
+body:before {
+	content:"";
+	height:100%;
+	float:left;
+	width:0;
+	margin-top:-32767px;/
+}
+
+h1{
+	font-size:20px;
+	padding:0px;
+	margin:0px;
+	margin-top:20px;
+}
+
+h2{
+	font-size:16px;
+	padding:0px;
+	margin:0px;
+}
+
+h3{
+	font-size:12px;
+	padding:0px;
+	margin:0px;
+	margin-top:3px;
+	font-weight:normal;
+}
+
+p{
+	font-size:12px;
+	padding:0px;
+	margin:0px;
+}
+
+#listDeckImage{
+	width:100px;
+	height:100px;
+	float:left;
+	margin-right:10px;
+	margin-bottom:10px;
+}
+
+#listDeckContainer{
+	margin-top:20px;
+	min-height:100px;
+}
+
+#listDeckInfo{
+}
+
+#listDeckControls{
+	margin-top:5px;
+	width:auto;
+}
+
+#listDeckControls a{
+	font-size:12px;
+	color:#FFF;
+	text-decoration:none;
+	padding:5px 10px 5px 10px;
+	background-color:#FF4F00;
+	border: 1px solid #666;
+}
+
+#listDeckControls a:hover{
+	background-color:#666;
+}
+
+#logo{
+	width:258px;
+	height:100%;
+	float:left;
+}
+
+#mainContainer{
+	min-height:100%;
+	width:100%;
+}
+
+#headerContainer{
+	width:100%;
+	height:107px;	
+	background-image:url('../images/header_repeater.png');
+}
+
+#headerNavigationContainer{
+	width:auto;
+	height:100%;
+}
+
+#topOfHeader{
+	width:auto;
+	height:71px;
+	color:#FFF;
+	line-height:300%;
+	font-size:11px;
+}
+
+#headerNavigation{
+	width:auto;
+	height:36px;
+	color:#FFF;
+	font-size:12px;
+	line-height:250%;
+}
+
+#headerNavigation img{
+	vertical-align:middle;
+}
+
+#headerNavigation a{
+	padding-left:10px;
+	padding-right:10px;
+	padding-bottom:10px;
+	padding-top:9px;
+	color: #FFF;
+	text-decoration:none;
+}
+
+#headerNavigation a:visited{
+	color: #FFF;
+}
+
+#headerNavigation a:hover{
+	padding-top:8px;
+	background-image:url('../images/navigation_hover.png');
+}
+
+#bodyContainer{
+	width:100%;
+	overflow:auto;
+	padding-bottom: 49px;
+}
+
+#contentContainer{
+	width:auto;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+#footerContainer{
+	width:100%;
+	height:49px;
+	background-image:url('../images/footer_repeater.png');
+	position: relative;
+	margin-top: -49px;
+	clear:both;
+}
+
+#footerContainer a{
+	color: #FFF;
+	text-decoration:none;
+}
+
+#footerContainer a:visited{
+	color: #FFF;
+}
+
+#footerContainer a:hover{
+	color: #CCC;
+}
+
+#leftFooter{
+	line-height:400%;
+	margin-left:20px;
+	color:#666;
+	font-size:12px;
+	float:left;
+}
+
+#rightFooter{
+	line-height:400%;
+	margin-right:20px;
+	color:#FFF;
+	font-size:12px;
+	float:right;
+}
+
+
 <!-- temp styles -->
 question
 {
