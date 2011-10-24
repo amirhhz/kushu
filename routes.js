@@ -76,7 +76,7 @@ module.exports = function (app) {
 	
 	app.get("/decks", function (req, res) {
 		app.models.getAllFromTableQuery("Deck", function(result){
-			res.render("decks", {decks: result});
+			res.render("decks", {decks: result, title: "Decks"});
 		});
 	});	
 };
