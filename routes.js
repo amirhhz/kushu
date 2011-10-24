@@ -36,14 +36,6 @@ module.exports = function (app) {
 		res.end();
 	});
 	
-	app.get("/choices", function (req, res) {
-		res.render("choices", {title: "Decks"});
-	});
-	
-	app.get("/makeADeck", function (req, res) {
-		res.render("makeADeck", {title: "Create"});
-	});
-	
 	app.get("/index", function (req, res) {
 		res.render("index", {title: "Home"});
 	});
@@ -67,7 +59,7 @@ module.exports = function (app) {
 		res.end();
 	});
 	
-	app.get("/deck/:deckId", function (req, res) {
+	app.get("/deck/:deckId", function (req, res) {		
 		var deck = [
 			{q: "Capital of France", a: "Paris"},
 			{q: "Capital of Austraila", a: "Canberra"},
@@ -83,16 +75,9 @@ module.exports = function (app) {
 	});
 	
 	app.get("/decks", function (req, res) {
-		var decks = [
-			{id: "1", name: "Capital Cities", summary: "stuff"},
-			{id: "2", name: "French Nouns", summary: "french stuff"},
-			{id: "3", name: "Staff Photos", summary: "staff stuff"}
-		];
-		if (req.xhr) {
-			res.send(decks);
-		}
-		res.render('decks', {title: "Decks", decks: decks});
-	});
-	
+		app.models.getAllFromTableQuery("Deck", function(result){
+			res.render("decks", {decks: result});
+		});
+	});	
 };
 
