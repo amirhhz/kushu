@@ -7,6 +7,7 @@ var express = require('express');
 
 var app = module.exports = express.createServer();
 var routes = require("./routes");
+var models = require("./models");
 
 // Configuration
 
@@ -37,6 +38,8 @@ app.dynamicHelpers({
 	},
 	messages: require('express-messages')
 });
+
+app.models = models;
 
 // Routes
 routes(app);
