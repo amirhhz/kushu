@@ -49,17 +49,27 @@ module.exports = function (app) {
 	});
 
 	app.post("/register", function (req, res){
-		console.log("Registering: " + req.body.username + ", " + req.body.password);
-		if (req.body.username) {
-			users[req.body.username] = { "password": req.body.password }; 		
-			console.log("Users: " + Object.keys(users));
-
+		var username = req.body.username;
+		var password = req.body.password;
+		console.log("Registering: " + username + ", " + password);
+		if (username && password) {
+			app.models.registerUser(username, password, function(result) {
+				console.log(result);
+				if (result === undefined){
+					req.flash("error", "Username already exists");
+					res.redirect("/register");
+				} else {
+					res.redirect("/login");
+				}
+			});
+		} else {
+			req.flash("error", "Bad username or password");
+			res.redirect("/register");
 		}
-		res.redirect("/login");
-		res.end();
 	});
 	
 	app.get("/deck/:deckId", function (req, res) {		
+		
 		var deck = [
 			{q: "Capital of France", a: "Paris"},
 			{q: "Capital of Austraila", a: "Canberra"},

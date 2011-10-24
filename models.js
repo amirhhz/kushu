@@ -41,6 +41,12 @@ exports.getRowsFromTableWhere = function(table, field,  value, callback){
 	});
 }
 
+exports.registerUser = function(username, password, callback) {
+	db.query("INSERT INTO User (username, password) VALUES (?, ?);", [username, password], function(err, result){
+		callback(result);
+	});
+}
+
 exports.insertDeckState = function(userId, deckId) {
 
 	exports.getRowsFromTableWhere("Card", "DECK_ID", deckId, function(result){
