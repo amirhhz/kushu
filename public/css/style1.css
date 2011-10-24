@@ -241,12 +241,6 @@ p{
 }
 */
 
-#mobListDeckControls{
-	margin-top:5px;
-	width:auto;
-	display: none;
-}
-
 /*
 #mobListDeckControls a{
 	font-size:12px;
@@ -400,11 +394,11 @@ p{
 
 @media screen and (max-width: 378px) {
 	
-	#mobListDeckControls{
-		display: block;	
+	#listDeckBrowse{
+		display: none;	
 	}
 	
-	#listDeckControls{
+	#listDeckRemove{
 		display: none;	
 	}
 	
