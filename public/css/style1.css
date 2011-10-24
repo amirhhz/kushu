@@ -4,21 +4,6 @@ html, body {
   padding: 0;
 }
 
-h1 {
-text-align:center;
-color:#1B1BB3;
-outline-color: black;
-font-family:"arial black", serif;
-}
-
-h2
-{
-text-align:center;
-color:#4F4FD9;
-outline-color: #000066;
-font-family:"arial black", serif;
-}
-
 label
 {
 	font-family:"arial black", serif;
@@ -114,12 +99,17 @@ h1{
 	padding:0px;
 	margin:0px;
 	margin-top:20px;
+	font-family: arial,sans-serif;
 }
 
 h2{
 	font-size:16px;
 	padding:0px;
 	margin:0px;
+	text-align: left;
+	color: #000;
+	font-family: arial,sans-serif;
+	
 }
 
 h3{
@@ -128,12 +118,14 @@ h3{
 	margin:0px;
 	margin-top:3px;
 	font-weight:normal;
+	font-family: arial,sans-serif;
 }
 
 p{
 	font-size:12px;
 	padding:0px;
 	margin:0px;
+	font-family: arial,sans-serif;
 }
 
 #listDeckImage{
@@ -141,7 +133,12 @@ p{
 	height:100px;
 	float:left;
 	margin-right:10px;
-	margin-bottom:10px;
+	margin-bottom:5px;
+}
+
+#listDeckImage img{
+	width:100px;
+	height:100px;
 }
 
 #listDeckContainer{
@@ -157,6 +154,79 @@ p{
 	width:auto;
 }
 
+/* BUTTONS */#listDeckControls a, #listDeckControls button{
+	    display:inline;
+	    float:left;
+	    background-color:#f5f5f5;
+	    border:1px solid #dedede;
+	    border-top:1px solid #eee;
+	    border-left:1px solid #eee;    font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+	    font-size:100%;
+	    line-height:100%;
+	    text-decoration:none;
+	    font-weight:bold;
+	    color:#565656;
+	    cursor:pointer;
+	    padding:5px 5px 6px 5px; /* Links */
+	   	margin-right: 2px;
+	}
+#listDeckControls button{
+    width:auto;
+    overflow:visible;
+    padding:4px 10px 3px 7px; /* IE6 */
+}
+#listDeckControls button[type]{
+    padding:5px 10px 5px 7px; /* Firefox */
+    line-height:17px; /* Safari */
+}
+*:first-child+html button[type]{
+    padding:4px 10px 3px 7px; /* IE7 */
+}
+#listDeckControls button img, #listDeckControls a img{
+    margin:0 3px -3px 0 !important;
+    padding:0;
+    border:none;
+    width:16px;
+    height:16px;
+}
+
+/* STANDARD */button:hover, #listDeckControls a:hover{
+    background-color:#dff4ff;
+    border:1px solid #c2e1ef;
+    color:#336699;
+}
+
+#listDeckControls a:active{
+    background-color:#6299c5;
+    border:1px solid #6299c5;
+    color:#fff;
+}/* POSITIVE */button.positive, #listDeckControls a.positive{
+    color:#529214;
+}
+#listDeckControls a.positive:hover, button.positive:hover{
+    background-color:#E6EFC2;
+    border:1px solid #C6D880;
+    color:#529214;
+}
+#listDeckControls a.positive:active{
+    background-color:#529214;
+    border:1px solid #529214;
+    color:#fff;
+}/* NEGATIVE */#listDeckControls a.negative, button.negative{
+    color:#d12f19;
+}
+#listDeckControls a.negative:hover, button.negative:hover{
+    background:#fbe3e4;
+    border:1px solid #fbc2c4;
+    color:#d12f19;
+}
+#listDeckControls a.negative:active{
+    background-color:#d12f19;
+    border:1px solid #d12f19;
+    color:#fff;
+}
+
+/*
 #listDeckControls a{
 	font-size:12px;
 	color:#FFF;
@@ -169,6 +239,29 @@ p{
 #listDeckControls a:hover{
 	background-color:#666;
 }
+*/
+
+#mobListDeckControls{
+	margin-top:5px;
+	width:auto;
+	display: none;
+}
+
+/*
+#mobListDeckControls a{
+	font-size:12px;
+	color:#FFF;
+	text-decoration:none;
+	padding:5px 10px 5px 10px;
+	background-color:#FF4F00;
+	border: 1px solid #666;
+}
+
+#mobListDeckControls a:hover{
+	background-color:#666;
+}
+
+*/
 
 #logo{
 	width:258px;
@@ -206,6 +299,7 @@ p{
 	color:#FFF;
 	font-size:12px;
 	line-height:250%;
+	text-align: right;
 }
 
 #headerNavigation img{
@@ -280,6 +374,55 @@ p{
 	float:right;
 }
 
+
+
+@media screen and (max-width: 487px) {
+
+	#headerNavigation{
+		display: none;	
+	}
+	
+	#rightFooter{
+		display: none;
+	}
+	
+	#headerContainer{
+		height:50px;
+		background-size:1px 50px;
+	}
+	
+	#headerContainer img{
+		height:50px;
+		-ms-interpolation-mode:bicubic;
+	}
+	
+}
+
+@media screen and (max-width: 378px) {
+	
+	#mobListDeckControls{
+		display: block;	
+	}
+	
+	#listDeckControls{
+		display: none;	
+	}
+	
+	#listDeckImage{
+		width:50px;
+		height:50px;
+		margin-right:5px;
+		margin-bottom:2px;
+	}
+	
+	#listDeckImage img{
+		width:50px;
+		height:50px;
+	}
+
+
+
+}
 
 <!-- temp styles -->
 question
