@@ -2,10 +2,10 @@
 
 <div id="listDeckContainer">
 	<div id="listDeckImage">
-		<img src="images/paris.jpg" alt="No Image">
+		<a href="/deck/<%=decks[i].DECK_ID %>"><img src="images/paris.jpg" alt="No Image"></a>
 	</div>
 	<div id="listDeckInfo">
-		<h2><%=decks[i].deck_name %></h2>
+		<a href="/deck/<%=decks[i].DECK_ID %>"><h2><%=decks[i].deck_name %></h2></a>
 		<p><%=decks[i].summary %></p>
 		<h3>Facts: <b>236</b></h3>
 		<div id="listDeckControls">
