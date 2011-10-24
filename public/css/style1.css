@@ -156,7 +156,6 @@ p{
 
 /* BUTTONS */#listDeckControls a, #listDeckControls button{
 	    display:inline;
-	    float:left;
 	    background-color:#f5f5f5;
 	    border:1px solid #dedede;
 	    border-top:1px solid #eee;
@@ -190,7 +189,7 @@ p{
     height:16px;
 }
 
-/* STANDARD */button:hover, #listDeckControls a:hover{
+/* STANDARD */#listDeckControls button:hover, #listDeckControls a:hover{
     background-color:#dff4ff;
     border:1px solid #c2e1ef;
     color:#336699;
@@ -226,36 +225,9 @@ p{
     color:#fff;
 }
 
-/*
-#listDeckControls a{
-	font-size:12px;
-	color:#FFF;
-	text-decoration:none;
-	padding:5px 10px 5px 10px;
-	background-color:#FF4F00;
-	border: 1px solid #666;
+#registerButton{
+	text-align: center;	
 }
-
-#listDeckControls a:hover{
-	background-color:#666;
-}
-*/
-
-/*
-#mobListDeckControls a{
-	font-size:12px;
-	color:#FFF;
-	text-decoration:none;
-	padding:5px 10px 5px 10px;
-	background-color:#FF4F00;
-	border: 1px solid #666;
-}
-
-#mobListDeckControls a:hover{
-	background-color:#666;
-}
-
-*/
 
 #logo{
 	width:258px;

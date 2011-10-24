@@ -1,15 +1,19 @@
 <center>
 <%- messages() %>
-<h1>Kushu</h1>
+<h1>Register</h1>
+</br>
 <form action="/register" method="post">
 	<label for="username">Choose a username: </label>
 	<input name="username" id="username" type="text" />
-	<br /><br />
+	<br />
+	<br />
 	<label for="password">Choose a password: </label>
 	<input name="password" id="password" type="password" />
 	<br />
 	<br />
 	
-	<input class="deckOptions" value="Register" type="submit"/>
+	<div id="listDeckControls">
+		<button value="Register" type="submit">Register</button>
+	</div>
 </form>
 </center>
