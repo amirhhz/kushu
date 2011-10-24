@@ -11,8 +11,7 @@ module.exports = function (app) {
 
 	app.get("/login", function (req, res, next) {
 		if (req.session.username) {
-			res.redirect("home");
-			res.end();
+			res.redirect("/decks");
 		} else {
 			res.render("login", {title: "Login"});			
 		}
@@ -21,13 +20,24 @@ module.exports = function (app) {
 	app.post("/login", function (req, res) {
 		var username = req.body.username;
 		var password = req.body.password;
-		if (username in users) {
-			users[username]["password"] === password ? req.session.username = username : null ;
+		
+		if (username && password) {
+			app.models.db.query("SELECT * FROM User WHERE username=? AND password=?;" 
+			, [username, password], function(err, result){
+				console.log(result);
+				if (result === undefined) {
+					req.flash("error", "Login details incorrect");
+					res.redirect("/login");
+				} else {
+					req.session.username = result[0].username;
+					req.session.user_id = result[0].USER_ID;
+					res.redirect("/login");
+				}
+			});
 		} else {
 			req.flash("error", "Bad username or password.");
+			res.redirect("/login");
 		} 
-		res.redirect("/login");
-		res.end();
 	});
 	
 	app.get("/logout", function (req, res) {
@@ -45,16 +55,18 @@ module.exports = function (app) {
 	});
 	
 	app.get("/register", function (req, res){
-		res.render("register", {title: "Register"});
+		if (req.session.username) {
+			res.redirect("home");
+		} else {
+			res.render("register", {title: "Register"});
+		}
 	});
 
 	app.post("/register", function (req, res){
 		var username = req.body.username;
 		var password = req.body.password;
-		console.log("Registering: " + username + ", " + password);
 		if (username && password) {
 			app.models.registerUser(username, password, function(result) {
-				console.log(result);
 				if (result === undefined){
 					req.flash("error", "Username already exists");
 					res.redirect("/register");
