@@ -52,9 +52,9 @@ input{
 
 label{
 font-family:"arial", serif;
-
-
 }
+
+
 
 .deckOptions {
 	margin-bottom:15px;	
@@ -86,6 +86,11 @@ font-family:"arial", serif;
 }.deckOptions:active {
 	position:relative;
 	top:1px;
+}
+
+<!--find best matching colour -->
+.deckOptions:visited{
+	color:white;
 }
 
 <!-- temp styles -->
