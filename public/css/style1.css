@@ -39,7 +39,17 @@ label{
 font-family:"arial", serif;
 }
 
-
+.chartOptions{
+	border-radius:6px;
+	border:1px solid #6b6b6b;
+	color:#141314;
+	font-family:arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:8px 0px;
+	width:160px;
+	margin-bottom:15px;	
+}
 
 .deckOptions {
 	margin-bottom:15px;	
