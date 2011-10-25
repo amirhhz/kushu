@@ -250,6 +250,7 @@ p{
 }
 
 #headerNavigationContainer{
+	float:left;
 	width:auto;
 	height:100%;
 }
@@ -260,6 +261,7 @@ p{
 	color:#FFF;
 	line-height:300%;
 	font-size:11px;
+	padding-right: 10px;
 }
 
 #headerNavigation{
@@ -291,6 +293,10 @@ p{
 #headerNavigation a:hover{
 	padding-top:8px;
 	background-image:url('../images/navigation_hover.png');
+}
+
+#mobHeaderNavigation{
+		display:none;
 }
 
 #bodyContainer{
@@ -347,12 +353,32 @@ p{
 
 @media screen and (max-width: 487px) {
 
+	#topOfHeader{
+		display: none;
+	}
+
+	#mobHeaderNavigation{
+		display:block;
+		color:#FFF;
+		text-decoration: none;
+		padding-top:25px;
+	}
+	
+	#mobHeaderNavigation a{
+		color:#FFF;
+		text-decoration: none;
+	}
+
 	#headerNavigation{
 		display: none;	
 	}
 	
 	#rightFooter{
 		display: none;
+	}
+	
+	#logo{
+		width:121px;
 	}
 	
 	#headerContainer{
