@@ -260,7 +260,7 @@ p{
 }
 
 #headerNavigationContainer{
-	float:left;
+	float:right;
 	width:auto;
 	height:100%;
 }
@@ -359,6 +359,19 @@ p{
 	float:right;
 }
 
+#deckBroswerTable{
+	width:90%;
+	text-align:center;
+}
+
+#deckBroswerTable h2{
+	text-align:center;
+}
+
+#deckBrowserTable td{
+	min-width: 250px;
+    width:auto !important; 
+}
 
 
 @media screen and (max-width: 487px) {
@@ -372,6 +385,7 @@ p{
 		color:#FFF;
 		text-decoration: none;
 		padding-top:25px;
+		padding-right: 20px;
 	}
 	
 	#mobHeaderNavigation a{
