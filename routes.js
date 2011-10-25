@@ -54,6 +54,10 @@ module.exports = function (app) {
 		res.render("about", {title: "About"});
 	});
 	
+	app.get("/stats", function (req, res) {
+		res.render("stats", {title: "Statistics"});
+	});
+	
 	app.get("/register", function (req, res){
 		if (req.session.username) {
 			res.redirect("home");
