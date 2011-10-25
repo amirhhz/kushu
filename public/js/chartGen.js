@@ -1,3 +1,84 @@
+
+/* Temp data: temp deckState object holding user deck info. will grab this info from the deck state json */
+
+var deckStateArray = [ { //French Nouns
+		state: {
+			revision: {
+				rev_no: 1,
+				rev_finished: false
+			},
+			next_due: {
+				group: 0, card: 0
+			},
+			groups: [
+				[1,2,3,4,5,6,7],
+				[5,6,7,8],
+				[9,10]
+			],		
+		},
+		answerQueue: []
+	}	,
+	
+	{ //Capital Cities
+		state: {
+			revision: {
+				rev_no: 1,
+				rev_finished: false
+			},
+			next_due: {
+				group: 0, card: 0
+			},
+			groups: [
+				[1,2,3,4],
+				[5,6,7,8,9,8,9,10,11,12],
+				[13,14]
+			],		
+		},
+		answerQueue: []
+	}	,
+	{ //Staff Pics
+		state: {
+			revision: {
+				rev_no: 1,
+				rev_finished: false
+			},
+			next_due: {
+				group: 0, card: 0
+			},
+			groups: [
+				[1,2,6,7],
+				[5,6,7,8,9],
+				[9,10,11,12,13,14,15]
+			],		
+		},
+		answerQueue: []
+	}  ]
+
+var firstNum = deckStateArray[0].state.groups[0].length;
+
+
+/* temp deck names array - need to be grabbed from the decks tables*/
+
+var deckNames = new Array("Capitals", "French", "StaffPics");
+
+var deckStats = [
+             [],  //capitals   
+             [],  //french  
+             []   //StaffPics
+             ];
+
+for(var i = 0; i < deckStateArray.length; i++){
+	
+	for(var j = 0; j < 3; j++)
+		deckStats[i][j] = deckStateArray[i].state.groups[j].length;	
+		
+	}
+
+/*
+ * End of temp data
+ */
+
+
 function showDiv(divID){
 	document.getElementById('chartDiv1').style.display = 'none';
 	document.getElementById('chartDiv2').style.display = 'none';
@@ -9,9 +90,8 @@ function generateStreamChart2()
         {
 			showDiv('chartDiv1');
 
-            var chart1 = new RGraph.Bar('chart1', [[12,15,19], [11,14, 9], [10,15,3]]);
-            //chart1.Set('chart.units.pre', '$');
-            chart1.Set('chart.title', '1Wk Progress (cards viewed)');
+            var chart1 = new RGraph.Bar('chart1', deckStats );
+            chart1.Set('chart.title', 'Deck Progress');
             chart1.Set('chart.title.vpos', 0.5);
             chart1.Set('chart.colors', ['purple', 'blue', 'green']);
             chart1.Set('chart.gutter.left', 40);
@@ -25,7 +105,7 @@ function generateStreamChart2()
             chart1.Set('chart.background.grid.hsize', 5);
             chart1.Set('chart.background.grid.vsize', 5);
             chart1.Set('chart.grouping', 'stacked');
-            chart1.Set('chart.labels', ['French', 'Capitals', 'StaffPics']);
+            chart1.Set('chart.labels', deckNames);
             chart1.Set('chart.labels.above', true);
             chart1.Set('chart.key', ['Needs Work', 'Unsure', 'Correct']);
             chart1.Set('chart.key.background', 'rgba(255,255,255,0.7)');
@@ -34,7 +114,7 @@ function generateStreamChart2()
             chart1.Set('chart.key.position.y', chart1.Get('chart.gutter.top') - 15);
             chart1.Set('chart.key.border', false);
             chart1.Set('chart.background.grid.width', 0.3); // Decimals are permitted
-            chart1.Set('chart.text.angle', 35);
+            chart1.Set('chart.text.angle', 0);
             chart1.Set('chart.strokestyle', 'rgba(0,0,0,0)');
             chart1.Set('chart.tooltips.event', 'onmousemove');
             
@@ -128,7 +208,7 @@ function generateStreamChart2()
             chart3.Set('chart.key.position.y', chart3.Get('chart.gutter.top') - 15);
             chart3.Set('chart.key.border', false);
             chart3.Set('chart.background.grid.width', 0.3); // Decimals are permitted
-            chart3.Set('chart.text.angle', 35);
+            chart3.Set('chart.text.angle', 0);
             chart3.Set('chart.strokestyle', 'rgba(0,0,0,0)');
             chart3.Set('chart.tooltips.event', 'onmousemove');
             
