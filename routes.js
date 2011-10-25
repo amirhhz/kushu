@@ -93,7 +93,9 @@ module.exports = function (app) {
 			app.models.getDeckState(userId, deckId, function(resultDeckState){
 				
 				if (resultDeckState.length === 0) {					
-					//TODO: Handle case where there isn't a DeckState entry for user,deck combination					
+					app.models.insertDeckState(userId, deckId, function() {
+						res.redirect("/deck/"+deckId);
+					});
 				} else {
 					var deckState = JSON.parse(resultDeckState[0].serialized_state);
 					var cardIds = leitner.getCardsForCurrentRevision(deckState);

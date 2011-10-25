@@ -47,7 +47,7 @@ exports.registerUser = function(username, password, callback) {
 	});
 }
 
-exports.insertDeckState = function(userId, deckId) {
+exports.insertDeckState = function(userId, deckId, callback) {
 
 	exports.getRowsFromTableWhere("Card", "DECK_ID", deckId, function(result){
 		var group = [];
@@ -58,7 +58,9 @@ exports.insertDeckState = function(userId, deckId) {
 		deckState.state.groups[0] = group;
 		console.log(JSON.stringify(deckState));
 		db.query("INSERT INTO DeckState (USER_ID, DECK_ID, date_modified, serialized_state) VALUES (" + 
-			userId + ", " + deckId + ", " + "CURRENT_TIMESTAMP, ?);", [JSON.stringify(deckState)]);
+			userId + ", " + deckId + ", " + "CURRENT_TIMESTAMP, ?);", [JSON.stringify(deckState)], function(err, insertResult) {
+				callback(deckState);
+			});
 		
 	});	
 }
