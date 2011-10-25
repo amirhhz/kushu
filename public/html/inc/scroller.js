@@ -1,7 +1,7 @@
 var windowHeight = document.height;
 var windowWidth = document.width;
 
-var numberOfCardsInDeck = 6;
+var numberOfCardsInDeck = 2;
 var currentPositionInDeck = 0;
 
 var WIDTH = 640;
