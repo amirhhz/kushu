@@ -21,7 +21,6 @@ module.exports = testCase({
     
     testGetAllUsers: function(test) {
     	models.getAllFromTableQuery("User", function(result){
-        	test.ok(result.length==5);
         	test.equal("Adam", result[2].username);
         	test.equal("passwordG", result[0].password);
         	test.done();
@@ -43,13 +42,11 @@ module.exports = testCase({
     	var queryMap = {
     		decks : "SELECT * FROM Card where DECK_ID=1;",
     		cards : "SELECT front FROM Card WHERE DECK_ID=2;",
-    		users : "SELECT username, USER_ID FROM User;"
     	};
     	
     	models.performQueries(queryMap, function(result){
     		test.equal(10, result["decks"].length);
-    		test.equal(10, result["cards"].length);
-    		test.equal(5, result["users"].length);    		
+    		test.equal(10, result["cards"].length);		
     		test.done(); 
     	});
     },

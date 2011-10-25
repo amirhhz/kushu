@@ -8,12 +8,10 @@ module.exports = testCase({
     	this.deckState = {
 			state: {
 				revision: {
-					rev_no: 1,
+					rev_no: 2,
 					rev_finished: false
 				},
-				next_due: {
-					group: 0, card: 0
-				},
+				next_due:0,
 				groups: [
 					[1,2,3,4],
 					[5,6,7,8],
@@ -25,21 +23,19 @@ module.exports = testCase({
 		this.expectedUpdatedDeck = {
 			state: {
 				revision: {
-					rev_no: 2,
+					rev_no: 3,
 					rev_finished: false
 				},
-				next_due: {
-					group: 0, card: 0
-				},
+				next_due: 0,
 				groups: [
 					[1,8],
-					[2,3,5,6,7,9],
-					[4,10]
+					[2,3,5,6,7],
+					[4,9,10]
 				],		
 			},
 			answerQueue: []
 		};
-		this.testAnswers = [0,1,1,2,1,1,1,0,1,2];
+		this.testAnswers = [0,1,1,2,1,1,1,0];
         callback();
     },
     
@@ -47,49 +43,49 @@ module.exports = testCase({
         callback();
     },
     
-    testGetCurrentCardIsFirstCardFromFirstGroup: function(test) {
-        test.equal(1, leitner.getCurrentCard(this.deckState));
-        test.done();
-    },
-    
-    testSettingTheAnswerOfCardAddsToTheAnswerQueue: function(test){
-    	leitner.answerCurrentCard(this.deckState, 1);
-    	var expected = [1];
-    	test.deepEqual(expected , this.deckState.answerQueue);
-    	test.done();
-    },
-    
-    testAferAnsweringCurrentCardTheCurrentCardIsSecondFromFirstGroup: function(test){
-    	leitner.answerCurrentCard(this.deckState, 0);
-    	test.equal(2, leitner.getCurrentCard(this.deckState));
-    	test.done();
-    }, 
-    
-    testWhenAtTheEndOfTheFirstGroupAnsweringCurrentCardMovesToFirstCardOfSecondGroup: function(test) {   	
-    	this.deckState.state.next_due.card = 3;
-    	leitner.answerCurrentCard(this.deckState, 0); 
-    	test.equal(5, leitner.getCurrentCard(this.deckState));
-    	test.done();
-    },
-    
-    testWhenAnsweringTheLastCardInDeckTheNextCardIsNull: function(test) {
-    	this.deckState.state.next_due.group = 2;
-    	this.deckState.state.next_due.card = 1;
-    	leitner.answerCurrentCard(this.deckState, 0);
-    	test.equal(null, leitner.getCurrentCard(this.deckState));
-    	test.done();
-    },
-    
     testWhenUpdatingStateCardsAreCorrectlyRearranged: function(test) {
-   
-   		for(var index in this.testAnswers){
-   			leitner.getCurrentCard(this.deckState);
-   			leitner.answerCurrentCard(this.deckState, this.testAnswers[index]);
-   		}
-
-    	var updatedDeck = leitner.updateState(this.deckState);
+   		
+    	var updatedDeck = leitner.updateDeckStateWithPartialAnswers(this.deckState, this.testAnswers);
     	test.deepEqual(this.expectedUpdatedDeck, updatedDeck);
     	test.done();	
+    },
+    
+    testUpdatingWithPartialAnswersResultsInDifferentCurrentRevisionCards: function(test) {
+		
+		var partiallyUpdated = leitner.updateDeckStateWithPartialAnswers(this.deckState, [1,0,1,2,1]);    
+    	test.equal(5, partiallyUpdated.state.next_due);
+    	test.deepEqual([6,7,8], leitner.getCardsForCurrentRevision(partiallyUpdated));
+    	test.done();
+    },
+    
+    testUpdatingRevisionThreeWithPartialAnswersResultsInDifferentCurrentRevisionCards: function(test) {
+		
+		this.deckState.state.revision.rev_no=3;
+		var partiallyUpdated = leitner.updateDeckStateWithPartialAnswers(this.deckState, [1,0,1,2]);    
+    	test.equal(4, partiallyUpdated.state.next_due);
+    	test.deepEqual([9,10], leitner.getCardsForCurrentRevision(partiallyUpdated));
+    	test.done();
+    },
+    
+    testUpdateWithTwoPartialAnswersThatAddUpToAFullAnswerProgressesToNextRev: function(test) {
+    	
+    	var updatedState = leitner.updateDeckStateWithPartialAnswers(this.deckState, [0,1,1,2]);
+    	updatedState = leitner.updateDeckStateWithPartialAnswers(updatedState, [1,1,1,0]);
+    	
+    	test.deepEqual([1,8,4,9,10],leitner.getCardsForCurrentRevision(updatedState));
+    	test.equal(0,updatedState.state.next_due);
+    	test.deepEqual([],updatedState.answerQueue);
+    	test.equal(3, updatedState.state.revision.rev_no);
+    	test.done();
+    },
+    
+    testTheCardsForRevisionTwoGetsTheCardsFromGroupOneAndTwoButNotThree: function(test) {
+    	
+    	var expectedResult = [1,2,3,4,5,6,7,8];
+    	this.deckState.state.revision.rev_no=2;
+    	var currentRevisionCards = leitner.getCardsForCurrentRevision(this.deckState);
+    	test.deepEqual(expectedResult, currentRevisionCards);
+    	test.done();
     }
 
     

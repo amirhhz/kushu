@@ -6,9 +6,7 @@ exports.createEmptyDeckState = function (){
 				rev_no: 1,
 				rev_finished: false
 			},
-			next_due: {
-				group: 0, card: 0
-			},
+			next_due: 0,
 			groups: [
 				[],
 				[],
@@ -18,71 +16,87 @@ exports.createEmptyDeckState = function (){
 		answerQueue: []
 	};
 	return emptyDeck;
-	
 }
 
-exports.getCurrentCard = function(stateOfDeck){
+exports.updateDeckStateWithPartialAnswers = function(stateOfDeck, partialAnswers){
 	
-	if(stateOfDeck.state.revision.rev_finished){
-		return null;
-	} else {
-	return stateOfDeck.state.groups[
-		stateOfDeck.state.next_due.group][stateOfDeck.state.next_due.card];
+	for(var i in partialAnswers){
+		stateOfDeck.answerQueue.push(partialAnswers[i]);	
+	}
+	stateOfDeck.state.next_due += partialAnswers.length;
+	
+	if(getLengthOfCurrentRevision(stateOfDeck) == stateOfDeck.answerQueue.length){
+		return exports.updateDeckStateWithFullAnswers(stateOfDeck);
+	}else{
+		return stateOfDeck;
 	}
 }
 
-exports.answerCurrentCard = function(stateOfDeck, answer){
-
-	stateOfDeck.answerQueue.push(answer);
-	moveToNextCard(stateOfDeck);
+exports.updateDeckStateWithFullAnswers = function(stateOfDeck){
+	
+		var answers = stateOfDeck.answerQueue;
+		var currentGroups = stateOfDeck.state.groups;
+		var updatedGroups = [];
+		var rev_no = stateOfDeck.state.revision.rev_no;
+		for(var i=0; i<currentGroups.length; i++){
+			updatedGroups.push(new Array());
+		}
+		
+		for(var i in currentGroups) {
+			var group = currentGroups[i];		
+			var properIndex = parseInt(i);
+			properIndex++;
+			// If this group was played
+			if((rev_no % properIndex)==0){
+				for(var index in group){
+					// go through each item in answers to find a group and then push the card onto that group
+					updatedGroups[answers.shift()].push(group[index]);
+				}
+			} else {
+				for(var index in group){
+					updatedGroups[i].push(group[index]);
+				}
+			}
+		}
+		
+		var updatedDeckState = exports.createEmptyDeckState();
+		updatedDeckState.state.revision.rev_no = (stateOfDeck.state.revision.rev_no+1);
+		updatedDeckState.state.groups = updatedGroups;
+		return updatedDeckState; 
 }
 
-exports.updateState = function(stateOfDeck){
+exports.getCardsForCurrentRevision = function(stateOfDeck){
 	
-	var answers = stateOfDeck.answerQueue;
-	var currentGroups = stateOfDeck.state.groups;
-	var updatedGroups = [];
+	var revisionCards = [];
+	var rev_no = stateOfDeck.state.revision.rev_no;
+	var groups = stateOfDeck.state.groups;
 	
-	for(var i=0; i<currentGroups.length; i++){
-		updatedGroups.push(new Array());
-	}
-	
-	for(var key in currentGroups) {
-		var group = currentGroups[key];
-		for(var index in group){
-			updatedGroups[answers.shift()].push(group[index]);
+	for(var i in groups){
+		var subGroup = groups[i];
+		var properIndex = parseInt(i);
+		properIndex++;
+		if((rev_no % properIndex)==0){
+			for(var index in subGroup){
+				revisionCards.push(subGroup[index]);
+			}
 		}
 	}
-	
-	var updatedDeckState = {
-		state: {
-			revision: {
-				rev_no: (stateOfDeck.state.revision.rev_no+1),
-				rev_finished: false
-			},
-			next_due: {
-				group: 0, card: 0
-			},
-			groups: updatedGroups,		
-		},
-		answerQueue: []
-	};
-	
-	return updatedDeckState; 
+	var cards = revisionCards.slice(stateOfDeck.state.next_due);
+	return cards;
 }
 
-moveToNextCard = function(stateOfDeck){
+var getLengthOfCurrentRevision = function(stateOfDeck){
 	
-	if(!stateOfDeck.state.revision.rev_finished){
-		if(stateOfDeck.state.groups[stateOfDeck.state.next_due.group].length-1 == stateOfDeck.state.next_due.card) {
-			stateOfDeck.state.next_due.group++;
-			stateOfDeck.state.next_due.card=0;
-		} else {
-			stateOfDeck.state.next_due.card++;
+	var rev_no = stateOfDeck.state.revision.rev_no;
+	var groups = stateOfDeck.state.groups;
+	var revisionLength=0;
+	for(var i in groups){
+		var subGroup = groups[i];
+		var properIndex = parseInt(i);
+		properIndex++;
+		if((rev_no % properIndex)==0){
+			revisionLength += subGroup.length; 
 		}
 	}
-	
-	if (stateOfDeck.state.next_due.group == stateOfDeck.state.groups.length){
-		stateOfDeck.state.revision.rev_finished = true;
-	}
+	return revisionLength;
 }
