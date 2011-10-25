@@ -4,6 +4,10 @@ var windowWidth = document.width;
 var numberOfCardsInDeck;
 var currentPositionInDeck = 0;
 
+var currentResponseToAnswer = null;
+var listOfCurrentResponses = new Array();
+
+
 var WIDTH = 640;
 var HEIGHT = 386;
 
@@ -55,8 +59,10 @@ function showHideDifficultyButtons() {
 			document.getElementsByClassName("next")[0].innerHTML = "<div align=\"center\">Next Question!</div>";
 			difficultyButtons.style.display = "block";
 		}else{
+			listOfCurrentResponses.push(currentResponseToAnswer);
 			document.getElementsByClassName("next")[0].innerHTML = "<div align=\"center\">Show Answer!</div>";
 			difficultyButtons.style.display = "none";
+			currentResponseToAnswer = null;
 		}
 	}else{
 		document.getElementById("controls").innerHTML = "<div align=\"center\"><p><b>End Of Deck!</b></p></div>";
@@ -71,14 +77,17 @@ function updateCorrectButton(buttonId) {
 	resetColorOfButtons();
 	
 	if(buttonId == 0){
+		currentResponseToAnswer = 2;
 		document.getElementsByClassName("positive")[0].style.backgroundColor = "#529214";
 		document.getElementsByClassName("positive")[0].style.color = "#FFF";
 		selectedButton = 0;
 	}else if(buttonId == 1){
+		currentResponseToAnswer = 1;
 		document.getElementsByClassName("almost")[0].style.backgroundColor = "#6299c5";
 		document.getElementsByClassName("almost")[0].style.color = "#FFF";
 		selectedButton = 1;
 	}else{
+		currentResponseToAnswer = 0;
 		document.getElementsByClassName("negative")[0].style.backgroundColor = "#d12f19";
 		document.getElementsByClassName("negative")[0].style.color = "#FFF";
 		selectedButton = 2;
@@ -94,5 +103,30 @@ function resetColorOfButtons(){
 	document.getElementsByClassName("negative")[0].style.color = "";
 }
 
-
-
+function saveAndExit(){
+	
+	if(currentPositionInDeck < numberOfCardsInDeck - 1){
+		if(currentPositionInDeck % 2 != 0){
+			if(currentResponseToAnswer != null){
+				listOfCurrentResponses.push(currentResponseToAnswer);
+				currentResponseToAnswer = null;
+				$.post("/example", { 'listOfCurrentResponses[]': listOfCurrentResponses });
+				location.href="/decks";
+			}else{
+				window.alert("You must select a response to exit!");
+			}
+			
+		}else{
+			$.post("/example", { 'listOfCurrentResponses[]': listOfCurrentResponses });
+			location.href="/decks";
+		}
+	}else{
+		if(currentResponseToAnswer != null){
+			$.post("/example", { 'listOfCurrentResponses[]': listOfCurrentResponses });
+			location.href="/decks";
+		}else{
+			window.alert("You must select a response to exit!");
+		}
+	
+	}
+}
