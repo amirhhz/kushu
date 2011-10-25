@@ -41,7 +41,7 @@
 					<a href="/about">About</a><img src="/images/navigation_seperator.png"><a href="/decks">Decks</a><img src="/images/navigation_seperator.png"><% if (!session.username) { %><a href="/register">Register</a><img src="/images/navigation_seperator.png"><a href="/login">Login</a><% }else{ %><a href="/logout">Logout</a><% } %>
 				</div>
 				<div id="mobHeaderNavigation">
-					<a href="/about">About</a> | <a href="/decks">Decks</a> | <a href="/login">Login</a>
+					<a href="/about">About</a> | <a href="/decks">Decks</a><% if (!session.username) { %> | <a href="/login">Login</a><% } %>
 				</div>
 			</div>
 		</div>
