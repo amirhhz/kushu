@@ -91,56 +91,58 @@ module.exports = function (app) {
 		} else {
 			
 			app.models.getDeckState(userId, deckId, function(resultDeckState){
-				//TODO: Handle case where there isn't a DeckState entry for user,deck combination
-				var deckState = JSON.parse(resultDeckState[0].serialized_state);
-				var cardIds = leitner.getCardsForCurrentRevision(deckState);
-				var deck = [];
-
-				app.models.getRowsFromTableWhere("Card", "DECK_ID" ,deckId, function(resultCards){
+				
+				if (resultDeckState.length === 0) {					
+					//TODO: Handle case where there isn't a DeckState entry for user,deck combination					
+				} else {
+					var deckState = JSON.parse(resultDeckState[0].serialized_state);
+					var cardIds = leitner.getCardsForCurrentRevision(deckState);
+					var deck = [];
 					
-					console.log("Cards in deck:" + JSON.stringify(resultCards));
-					var resultMap = [];
-					for(var i in resultCards){
-						resultMap[resultCards[i].CARD_ID] = resultCards[i];
-					}
-					console.log("ResultMap:" + JSON.stringify(resultMap));
 					
-					for(var i in cardIds){
-						var currentCard = resultMap[cardIds[i]];
-						if(currentCard){
-							deck.push({ 
-								"q" : currentCard.front,
-								"a" : currentCard.back
-							});
+					app.models.getRowsFromTableWhere("Card", "DECK_ID" ,deckId, function(resultCards){
+						
+						var resultMap = [];
+						for(var i in resultCards){
+							resultMap[resultCards[i].CARD_ID] = resultCards[i];
 						}
-					
-					console.log("Deck to be sent:" + JSON.stringify(deck));
-					
-					}
-					
-					app.models.db.query("SELECT deck_name FROM Deck WHERE DECK_ID=?;", [deckId], function(err, result){
-						var deckTitle = result[0].deck_name;
-						res.render('deck', {title: deckTitle, deck: deck});						
-					});
-				});				
+						
+						for(var i in cardIds){
+							var currentCard = resultMap[cardIds[i]];
+							if(currentCard){
+								deck.push({ 
+									"q" : currentCard.front,
+									"a" : currentCard.back
+								});
+							}
+						}
+						
+						app.models.db.query("SELECT deck_name FROM Deck WHERE DECK_ID=?;", [deckId], function(err, result){
+							var deckTitle = result[0].deck_name;
+							res.render('deck', {title: deckTitle, deck: deck});						
+						});
+					});					
+				}
 			});
 		}
-		//res.render('deck', {title: "DECK No. " + req.params.deckId, deck: deck});
 	});
 	
-	app.get("/browse/:deckId", function (req, res) {		
-		var deck = [
-			{q: "Capital of France", a: "Paris"},
-			{q: "Capital of Austraila", a: "Canberra"},
-			{q: "Capital of Estonia", a: "Tallinn"},
-			{q: "Capital of England", a: "London"},
-			{q: "Capital of Yemen", a: "Sana'a"},
-			{q: "Capital of Germany", a: "Berlin"}
-		];
-		if (req.xhr) {
-			res.send(deck);
-		}
-		res.render('browse', {title: "DECK No. " + req.params.deckId, deck: deck});
+	app.get("/deck/:deck_id/cards", function (req, res) {		
+
+		var deckId = req.params.deck_id;				
+		var deck = [];
+		app.models.getRowsFromTableWhere("Card", "DECK_ID" ,deckId, function(resultCards){
+			
+			for(var i in resultCards){
+				deck.push({ "q" : resultCards[i].front,
+							"a" : resultCards[i].back 
+				});
+			}
+			app.models.db.query("SELECT deck_name FROM Deck WHERE DECK_ID=?;", [deckId], function(err, result){
+				var deckTitle = result[0].deck_name;
+				res.render('cards', {title: deckTitle, deck: deck});						
+			});			
+		});
 	});
 	
 	app.get("/decks", function (req, res) {
