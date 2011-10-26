@@ -78,6 +78,13 @@ exports.getDeckState = function(userId, deckId, callback) {
 	});
 }
 
+exports.getAllDecksState = function(userId, callback) {
+
+	db.query("SELECT * FROM DeckState WHERE USER_ID="+userId+";", function(err, result) {
+		callback(result);
+	});
+}
+
 exports.startClient = function(dbname){
 	
 	if((!db) || !db.connected){
