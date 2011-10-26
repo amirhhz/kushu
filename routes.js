@@ -153,7 +153,7 @@ module.exports = function (app) {
 									console.log("Image or text?;")
 									if(question.length > 4) {
 										questionStringFileType = question.substr(question.length - 4);
-											if(questionStringFileType.toLowerCase() == (".jpg" || ".png" || ".gif" || ".bmp")){
+											if((questionStringFileType.toLowerCase() == ".jpg") || (questionStringFileType.toLowerCase() == ".png") || (questionStringFileType.toLowerCase() == ".gif") || (questionStringFileType.toLowerCase() == ".bmp")){
 												return "<img src='/deckImages/"+question+"' />";
 											} else {
 												return question;
