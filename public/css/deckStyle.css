@@ -73,7 +73,12 @@ body{
 	font-weight:bold;
 }
 
+.cardQuestion img {
+	margin-top: -50px;
+}
+
 .cardAnswer {
+	margin-top:40px;
 	font-family: arial,sans-serif;
 	font-size: 28px;
 }
@@ -192,6 +197,12 @@ body{
 		font-family: arial,sans-serif;
 		font-size: 20px;
 	}
+	
+	.cardQuestion img {
+		margin-top: -20px;
+		height: 100px;
+	}
+
 }
 
 @media screen and (min-width: 480px) and (max-width: 640px) {
@@ -216,6 +227,11 @@ body{
 		font-family: arial,sans-serif;
 		font-size: 22px;
 		font-weight:bold;
+	}
+	
+	.cardQuestion img {
+		margin-top: -25px;
+		height: 150px;
 	}
 	
 	.cardAnswer {
@@ -248,7 +264,14 @@ body{
 		font-weight:bold;
 	}
 	
+	.cardQuestion img {
+		margin-top: -30px;
+		height: 200px;
+	}
+
+	
 	.cardAnswer {
+		padding-top:25px;
 		font-family: arial,sans-serif;
 		font-size: 24px;
 	}
@@ -279,8 +302,14 @@ body{
 	}
 	
 	.cardAnswer {
+		padding-top:40px;
 		font-family: arial,sans-serif;
 		font-size: 28px;
+	}
+	
+	.cardQuestion img {
+		margin-top: -40px;
+		height: 225px;
 	}
 	
 	/* BUTTONS */.buttons a, .buttons button{
