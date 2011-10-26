@@ -53,8 +53,31 @@ module.exports = function (app) {
 		res.render("about", {title: "About"});
 	});
 	
-	app.get("/stats", function (req, res) {
-		res.render("stats", {title: "Statistics"});
+	app.get("/stats" , function (req, res){
+		var userId = req.session.user_id;
+		
+		if (!userId) {
+			res.redirect("/login");
+		} else {
+			app.models.getAllDecksState(userId, function(result){				
+
+				var statesArray = [  ];
+				var deckIDs = [];
+				
+				for(var i in result){
+					statesArray[i] = [];
+					deckIDs[i] = JSON.parse(result[i]["DECK_ID"]);
+					var dState = JSON.parse(result[i]["serialized_state"]);
+					
+					for(var j in dState.state.groups){
+						var len = dState.state.groups[j].length;
+						statesArray[i][j] = len;
+					}					
+				}	
+				
+				res.render('stats', {title: "stats", statesArray: statesArray, deckIDs: deckIDs});				
+			});		
+		}		
 	});
 	
 	app.get("/register", function (req, res){
