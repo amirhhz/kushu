@@ -12,7 +12,10 @@
 				<!-- Question -->
 				<div class="scrollEl">
 					<div class="questionBox">
-						<div class="cardQuestion"><%= deck[i].q %></div>
+						<div class="cardQuestion">
+							<% console.log(imageOrText) %>
+							<%- imageOrText(deck[i].q) %>
+						</div>
 					</div>
 				
 					<div class="answerBox">
@@ -23,11 +26,15 @@
 				<!-- Answer -->
 				<div class="scrollEl">
 					<div class="questionBox">
-						<div class="cardQuestion"><%= deck[i].q %></div>
+						<div class="cardQuestion">
+							<%- imageOrText(deck[i].q) %>
+					</div>
 					</div>
 				
 					<div class="answerBox">
-						<div class="cardAnswer"><%= deck[i].a %></div>
+						<div class="cardAnswer">
+							<%- deck[i].a %>
+						</div>
 					</div>	
 				</div>
 			<% } %>
