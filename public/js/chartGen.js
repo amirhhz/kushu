@@ -158,7 +158,7 @@ function generateStreamChart2()
             chart2.Set('chart.gutter.right', 30);
             chart2.Set('chart.gutter.top', 35);
             chart2.Set('chart.gutter.bottom', 35);
-            chart2.Set('chart.title', "Work share");
+            chart2.Set('chart.title', "Card Percentages");
             chart2.Set('chart.title.vpos', 0.3);
             chart2.Set('chart.shadow', false);
             chart2.Set('chart.tooltips.effect', 'fade');
