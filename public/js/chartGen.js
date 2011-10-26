@@ -1,6 +1,6 @@
 /* temp deck names array - need to be grabbed from the decks tables*/
 
-var deckNames = new Array("", "Capitals", "French", "StaffPics");
+var deckNames = new Array("", "Capitals", "French", "StaffPics", "Flags");
 
 
 /*
@@ -64,6 +64,9 @@ function getPieData(dStats){
 	
 }
 
+/*
+ * extracts information from states and puts in local fields 
+ */
 function getData(states){
 	
 	var statArray = states.split(",");
@@ -76,7 +79,7 @@ function getData(states){
 }
 
 /*
- * holds an array of deck IDs for the above array
+ * holds an array of deck IDs for the current user
  */
 var userDecks = [];
 
