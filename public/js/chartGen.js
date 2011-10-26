@@ -1,82 +1,92 @@
-
-/* Temp data: temp deckState object holding user deck info. will grab this info from the deck state json */
-
-var deckStateArray = [ { //French Nouns
-		state: {
-			revision: {
-				rev_no: 1,
-				rev_finished: false
-			},
-			next_due: {
-				group: 0, card: 0
-			},
-			groups: [
-				[1,2,3,4,5,6,7],
-				[5,6,7,8],
-				[9,10]
-			],		
-		},
-		answerQueue: []
-	}	,
-	
-	{ //Capital Cities
-		state: {
-			revision: {
-				rev_no: 1,
-				rev_finished: false
-			},
-			next_due: {
-				group: 0, card: 0
-			},
-			groups: [
-				[1,2,3,4],
-				[5,6,7,8,9,8,9,10,11,12],
-				[13,14]
-			],		
-		},
-		answerQueue: []
-	}	,
-	{ //Staff Pics
-		state: {
-			revision: {
-				rev_no: 1,
-				rev_finished: false
-			},
-			next_due: {
-				group: 0, card: 0
-			},
-			groups: [
-				[1,2,6,7],
-				[5,6,7,8,9],
-				[9,10,11,12,13,14,15]
-			],		
-		},
-		answerQueue: []
-	}  ]
-
-var firstNum = deckStateArray[0].state.groups[0].length;
-
-
 /* temp deck names array - need to be grabbed from the decks tables*/
 
-var deckNames = new Array("Capitals", "French", "StaffPics");
+var deckNames = new Array("", "Capitals", "French", "StaffPics");
 
-var deckStats = [
-             [],  //capitals   
-             [],  //french  
-             []   //StaffPics
-             ];
-
-for(var i = 0; i < deckStateArray.length; i++){
-	
-	for(var j = 0; j < 3; j++)
-		deckStats[i][j] = deckStateArray[i].state.groups[j].length;	
-		
-	}
 
 /*
- * End of temp data
+ * holds an array of the quantity of each answer type (correct etc)
  */
+var deckStats = [ [] ]; 
+
+/*
+ * holds an array the card percentages for the pie chart
+ */
+var cardPercentages = [];
+
+/*
+ * holds an array of the Pie Chart Labels
+ */
+var chartLabels = new Array("Needs Work", "Unsure", "Correct" );
+
+function splitToThrees(arr){
+	
+	var newArr = [ [] ];
+	var subsX = 0;
+	var subsY = 0;
+	for(var i in arr){
+		
+		if(i % 3 == 0 && i != 0)
+			{ 
+				subsX++;
+				newArr[subsX] = [];
+				subsY = 0;
+			}
+		
+		newArr[subsX][subsY++] = arr[i];		
+	}
+	return newArr;
+}
+
+/*
+ * generates the array of pie chart percentages for unsure, correct etc
+ * also adds percentages to the chart labels array
+ */
+function getPieData(dStats){
+	var needsWork = 0;
+	var unsure = 0;
+	var correct = 0;
+	
+	for(i in dStats){
+		needsWork += dStats[i][0];
+		unsure += dStats[i][1];
+		correct += dStats[i][2];		
+	}
+	
+	var total = needsWork + unsure + correct;
+	
+	var percentages = new Array((100 * needsWork / total) , (100 * unsure / total) , (100 * correct / total));
+	
+	chartLabels[0] += " " + parseInt(100 * needsWork / total) + "%";
+	chartLabels[1] += " " + parseInt(100 * unsure / total) + "%";
+	chartLabels[2] += " " + parseInt(100 * correct / total) + "%";
+	
+	return percentages;
+	
+}
+
+function getData(states){
+	
+	var statArray = states.split(",");
+	
+	for(var i in statArray)
+		statArray[i] = parseInt(statArray[i]);
+	
+	deckStats = splitToThrees(statArray);
+	cardPercentages = getPieData(deckStats);
+}
+
+/*
+ * holds an array of deck IDs for the above array
+ */
+var userDecks = [];
+
+function getDeckIDs(decks){
+	var deckNumbers = decks.split(",");
+	
+	for(var i in deckNumbers)
+		userDecks[i] = deckNames[deckNumbers[i]];
+}
+
 
 
 function showDiv(divID){
@@ -87,7 +97,7 @@ function showDiv(divID){
 }
 
 function generateStreamChart2()
-        {
+        {	
 			showDiv('chartDiv1');
 
             var chart1 = new RGraph.Bar('chart1', deckStats );
@@ -105,8 +115,8 @@ function generateStreamChart2()
             chart1.Set('chart.background.grid.hsize', 5);
             chart1.Set('chart.background.grid.vsize', 5);
             chart1.Set('chart.grouping', 'stacked');
-            chart1.Set('chart.labels', deckNames);
-            chart1.Set('chart.labels.above', true);
+            chart1.Set('chart.labels', userDecks);
+            //chart1.Set('chart.labels.above', true);
             chart1.Set('chart.key', ['Needs Work', 'Unsure', 'Correct']);
             chart1.Set('chart.key.background', 'rgba(255,255,255,0.7)');
             chart1.Set('chart.key.position', 'gutter');
@@ -141,8 +151,8 @@ function generateStreamChart2()
 		function generatePie(){
 			showDiv('chartDiv2');
 			
-		     var chart2 = new RGraph.Pie('chart2', [41,37,16,6]); // Create the pie object
-            chart2.Set('chart.labels', ['StaffPics (41%)', 'Capitals (37%)', 'French (16%)', 'Other (6%)']);
+		    var chart2 = new RGraph.Pie('chart2', cardPercentages); // Create the pie object
+            chart2.Set('chart.labels', chartLabels);
             chart2.Set('chart.labels.sticks', true);
             chart2.Set('chart.gutter.left', 30);
             chart2.Set('chart.gutter.right', 30);
@@ -155,10 +165,9 @@ function generateStreamChart2()
             chart2.Set('chart.tooltips.event', 'onmousemove');
             //chart2.Set('chart.exploded', [0,0,15,25]);
             chart2.Set('chart.tooltips', [
-                                        'Staff Photos (41%)',
-                                        'Capital Cities (37%)',
-                                        'French Nouns (16%)',
-                                        'Other (6%)'
+                                        'Needs Work',
+                                        'Unsure',
+                                        'Correct'                                        
                                        ]
                                       );
             chart2.Set('chart.highlight.style', '2d');
