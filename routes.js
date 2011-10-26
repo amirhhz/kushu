@@ -23,7 +23,8 @@ module.exports = function (app) {
 		if (username && password) {
 			app.models.db.query("SELECT * FROM User WHERE username=? AND password=?;" 
 			, [username, password], function(err, result){
-				if (result === undefined) {
+
+				if (result.length === 0) {
 					req.flash("error", "Login details incorrect");
 					res.redirect("/login");
 				} else {
