@@ -10,7 +10,7 @@ module.exports = function (app) {
 
 	app.get("/login", function (req, res, next) {
 		if (req.session.username) {
-			res.redirect("/decks");
+			res.redirect("/index");
 		} else {
 			res.render("login", {title: "Login"});			
 		}
