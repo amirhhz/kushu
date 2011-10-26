@@ -1,7 +1,28 @@
 /* temp deck names array - need to be grabbed from the decks tables*/
 
-var deckNames = new Array("", "Capitals", "French", "StaffPics", "Flags");
+var deckNames = [""];
+var deckNumbers;
+	
+	/*
+	 * holds an array of deck IDs for the current user
+	 */
 
+var userDecks = [];	
+
+	
+$.getJSON("/decks?format=json", function(data) {
+	console.log("mefirst");
+	for (var i in data) {
+		deckNames.push(data[i].deck_name);
+	}
+	for(var i in deckNumbers)
+		userDecks[i] = deckNames[deckNumbers[i]];
+});
+
+/*
+ * holds an array of deck IDs for the current user
+ */
+var userDecks = [];
 
 /*
  * holds an array of the quantity of each answer type (correct etc)
@@ -78,19 +99,13 @@ function getData(states){
 	cardPercentages = getPieData(deckStats);
 }
 
-/*
- * holds an array of deck IDs for the current user
- */
-var userDecks = [];
-
 function getDeckIDs(decks){
-	var deckNumbers = decks.split(",");
+	deckNumbers = decks.split(",");
 	
+	console.log("me second");
 	for(var i in deckNumbers)
 		userDecks[i] = deckNames[deckNumbers[i]];
 }
-
-
 
 function showDiv(divID){
 	document.getElementById('chartDiv1').style.display = 'none';
@@ -127,7 +142,7 @@ function generateStreamChart2()
             chart1.Set('chart.key.position.y', chart1.Get('chart.gutter.top') - 15);
             chart1.Set('chart.key.border', false);
             chart1.Set('chart.background.grid.width', 0.3); // Decimals are permitted
-            chart1.Set('chart.text.angle', 0);
+            chart1.Set('chart.text.angle', 25);
             chart1.Set('chart.strokestyle', 'rgba(0,0,0,0)');
             chart1.Set('chart.tooltips.event', 'onmousemove');
             
