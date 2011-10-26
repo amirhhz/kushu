@@ -110,23 +110,27 @@ function saveAndExit(){
 			if(currentResponseToAnswer != null){
 				listOfCurrentResponses.push(currentResponseToAnswer);
 				currentResponseToAnswer = null;
-				$.post("/example", { 'listOfCurrentResponses[]': listOfCurrentResponses });
-				location.href="/decks";
+				postAnswersAndRedirect();
 			}else{
 				window.alert("You must select a response to exit!");
 			}
 			
 		}else{
-			$.post("/example", { 'listOfCurrentResponses[]': listOfCurrentResponses });
-			location.href="/decks";
+			postAnswersAndRedirect();
 		}
 	}else{
 		if(currentResponseToAnswer != null){
-			$.post("/example", { 'listOfCurrentResponses[]': listOfCurrentResponses });
-			location.href="/decks";
+			listOfCurrentResponses.push(currentResponseToAnswer);
+			postAnswersAndRedirect();
 		}else{
 			window.alert("You must select a response to exit!");
 		}
 	
 	}
+}
+
+function postAnswersAndRedirect() {
+	// deckId should be set in the EJS template
+	$.post("/deck/"+deckId, { 'answers': listOfCurrentResponses });
+	window.location="/decks";
 }
