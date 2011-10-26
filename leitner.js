@@ -62,6 +62,10 @@ exports.updateDeckStateWithFullAnswers = function(stateOfDeck){
 		var updatedDeckState = exports.createEmptyDeckState();
 		updatedDeckState.state.revision.rev_no = (stateOfDeck.state.revision.rev_no+1);
 		updatedDeckState.state.groups = updatedGroups;
+		while(getLengthOfCurrentRevision(updatedDeckState)==0){
+			console.log(updatedDeckState.state.revision.rev_no);
+			updatedDeckState.state.revision.rev_no++;
+		}
 		return updatedDeckState; 
 }
 
