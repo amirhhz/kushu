@@ -121,10 +121,10 @@ module.exports = function (app) {
 						
 						app.models.db.query("SELECT deck_name FROM Deck WHERE DECK_ID=?;", [deckId], function(err, result){
 							var deckTitle = result[0].deck_name;
-							res.render('deck', {title: deckTitle, deck: deck, deckId: deckId});						
 							res.render('deck', {
 								title: deckTitle, 
 								deck: deck,
+								deckId: deckId,
 								imageOrText: function(question) {
 									console.log("Image or text?;")
 									if(question.length > 4) {
