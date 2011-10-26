@@ -32,6 +32,18 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
+app.helpers({
+	imageOrText: function(question) {
+		var imgPattern = new RegExp("^(.+)\.(jpg|png|gif|jpeg)$", "i");
+		var match = imgPattern.exec(question);
+		if(match) {
+			return "<img src='/deckImages/"+question+"' />";
+		} else {
+			return question;
+		}
+	}	
+});
+
 app.dynamicHelpers({
 	session: function (req, res) {
 		return req.session;
