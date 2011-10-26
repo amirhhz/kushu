@@ -121,12 +121,27 @@ module.exports = function (app) {
 						
 						app.models.db.query("SELECT deck_name FROM Deck WHERE DECK_ID=?;", [deckId], function(err, result){
 							var deckTitle = result[0].deck_name;
-							res.render('deck', {title: deckTitle, deck: deck});						
+							res.render('deck', {title: deckTitle, deck: deck, deckId: deckId});						
 						});
-					});					
+					});
 				}
 			});
 		}
+	});
+	
+	app.post("/deck/:deck_id", function(req, res) {
+		
+		//TODO: only for logged in users
+		//TODO: should verify existence of answers and deck_id
+		var userId = req.session.user_id;
+		var deckId = req.params.deck_id;
+		var answers = req.body.answers;
+		
+		app.models.getDeckState(userId, deckId, function(result){
+			var currState = JSON.parse(result[0].serialized_state);
+			var updatedState = leitner.updateDeckStateWithPartialAnswers(currState, answers);			
+			app.models.updateDeckState(userId, deckId, updatedState);
+		});
 	});
 	
 	app.get("/deck/:deck_id/cards", function (req, res) {		
