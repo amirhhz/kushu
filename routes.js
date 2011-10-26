@@ -218,7 +218,11 @@ module.exports = function (app) {
 				decks[index].card_count = countResults[index].card_count;
 			}
 			
-			res.render("decks", {decks: decks, title: "Decks"});
+			if(req.query.format) {
+				req.query.format == "json" ? res.json(decks) : res.send(404);
+			} else {
+				res.render("decks", {decks: decks, title: "Decks"});				
+			}
 		});
 	});	
 };
