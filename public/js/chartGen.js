@@ -76,10 +76,6 @@ function getPieData(dStats){
 	
 	var percentages = new Array((100 * needsWork / total) , (100 * unsure / total) , (100 * correct / total));
 	
-	chartLabels[0] += " " + parseInt(100 * needsWork / total) + "%";
-	chartLabels[1] += " " + parseInt(100 * unsure / total) + "%";
-	chartLabels[2] += " " + parseInt(100 * correct / total) + "%";
-	
 	return percentages;
 	
 }
@@ -96,6 +92,10 @@ function getData(states){
 	
 	deckStats = splitToThrees(statArray);
 	cardPercentages = getPieData(deckStats);
+	
+	chartLabels[0] += " " + parseInt(cardPercentages[0]) + "%";
+	chartLabels[1] += " " + parseInt(cardPercentages[1]) + "%";
+	chartLabels[2] += " " + parseInt(cardPercentages[2]) + "%";
 }
 
 function getDeckIDs(decks){
@@ -123,7 +123,7 @@ function generateStreamChart2()
             chart1.Set('chart.gutter.left', 40);
             chart1.Set('chart.gutter.right', 5);
             chart1.Set('chart.gutter.top', 40);
-            chart1.Set('chart.gutter.bottom', 50);
+            chart1.Set('chart.gutter.bottom', 60);
             chart1.Set('chart.shadow', true);
             chart1.Set('chart.shadow.color', '#aaa');
             chart1.Set('chart.background.barcolor1', 'white');
@@ -169,16 +169,15 @@ function generateStreamChart2()
 		    var chart2 = new RGraph.Pie('chart2', cardPercentages); // Create the pie object
             chart2.Set('chart.labels', chartLabels);
             chart2.Set('chart.labels.sticks', true);
-            chart2.Set('chart.gutter.left', 30);
-            chart2.Set('chart.gutter.right', 30);
-            chart2.Set('chart.gutter.top', 35);
+            chart2.Set('chart.gutter.left', 35);
+            chart2.Set('chart.gutter.right', 35);
+            chart2.Set('chart.gutter.top', 50);
             chart2.Set('chart.gutter.bottom', 35);
             chart2.Set('chart.title', "Card Percentages");
             chart2.Set('chart.title.vpos', 0.3);
             chart2.Set('chart.shadow', false);
             chart2.Set('chart.tooltips.effect', 'fade');
             chart2.Set('chart.tooltips.event', 'onmousemove');
-            //chart2.Set('chart.exploded', [0,0,15,25]);
             chart2.Set('chart.tooltips', [
                                         'Needs Work',
                                         'Unsure',
