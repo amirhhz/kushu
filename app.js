@@ -37,7 +37,7 @@ app.helpers({
 		var imgPattern = new RegExp("^(.+)\.(jpg|png|gif|jpeg)$", "i");
 		var match = imgPattern.exec(question);
 		if(match) {
-			return "<img src='/deckImages/"+question+"' />";
+			return "<img src='/content/cards/"+question+"' />";
 		} else {
 			return question;
 		}
