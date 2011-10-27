@@ -270,6 +270,10 @@ module.exports = function (app) {
 				res.render("decks", {decks: decks, title: "Decks", correctDeckStates: correctStatesArray, deckIdArray: deckIdArray});				
 			}
 		});
+	});
+	
+	app.get("/buildDeck", function (req, res) {
+		res.render("buildDeck", {title: "Build a deck"});
 	});	
 };
 
