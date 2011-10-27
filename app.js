@@ -55,6 +55,14 @@ app.helpers({
 			 var arg1 = 1 + Math.floor(Math.random()*MAX_ARG);
 			 var arg2 = 1 + Math.floor(Math.random()*MAX_ARG);
 			 
+			 
+			 // prevent less-than-one fraction for division (UX consideration)
+			 if (arg1 < arg2 && match[1] === "/") {
+			 	var temp = arg1;
+			 	arg1 = arg2;
+			 	arg2 = temp;
+			 }
+			 
 			 var questionText = arg1 + opCode + arg2;
 			 var answerText = "" + eval(questionText);
 			 return {q: questionText, a: answerText};			 

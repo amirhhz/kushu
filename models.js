@@ -13,10 +13,6 @@ exports.performQueries = function(queryMap, callback)
 		{
 			db.query(queryString, function(err, result)
 			{	
-				if(err){
-					console.log(err);
-				}
-				
 				response[key] = result;
 				if (Object.keys(response).length === Object.keys(queryMap).length)
 					callback(response);
