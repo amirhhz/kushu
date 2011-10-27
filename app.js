@@ -41,6 +41,26 @@ app.helpers({
 		} else {
 			return question;
 		}
+	},
+	// Returns a map with the question and its answer, or 
+	// null if question is not a math one.
+	generateMathQA: function(question) {
+		
+		var MAX_ARG = 20;
+		
+		var mathPattern = new RegExp("^\\$([+*/\-])\\$$", "i");
+		var match = mathPattern.exec(question);
+		if(match) {
+			 var opCode = " " + match[1] + " ";
+			 var arg1 = 1 + Math.floor(Math.random()*MAX_ARG);
+			 var arg2 = 1 + Math.floor(Math.random()*MAX_ARG);
+			 
+			 var questionText = arg1 + opCode + arg2;
+			 var answerText = "" + eval(questionText);
+			 return {q: questionText, a: answerText};			 
+		} else {
+			return null;
+		}
 	}	
 });
 

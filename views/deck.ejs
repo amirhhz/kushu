@@ -9,11 +9,14 @@
 		<div id="myScroll">
 	  		
 	  		<% for(var i=0; i<deck.length; i++) { %>
+	  			<% var math = generateMathQA(deck[i].q); %>
+	  			<% if (math) { %>
+	  				<% deck[i].q = math.q; deck[i].a = math.a; %>
+  				<% } %>
 				<!-- Question -->
 				<div class="scrollEl">
 					<div class="questionBox">
 						<div class="cardQuestion">
-							<% console.log(imageOrText) %>
 							<%- imageOrText(deck[i].q) %>
 						</div>
 					</div>
