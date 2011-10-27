@@ -3,15 +3,14 @@
 var deckNames = [""];
 var deckNumbers;
 	
-	/*
-	 * holds an array of deck IDs for the current user
-	 */
+/*
+ * holds an array of deck IDs for the current user
+ */
 
 var userDecks = [];	
 
 	
 $.getJSON("/decks?format=json", function(data) {
-	console.log("mefirst");
 	for (var i in data) {
 		deckNames.push(data[i].deck_name);
 	}
@@ -41,20 +40,20 @@ var chartLabels = new Array("Needs Work", "Unsure", "Correct" );
 
 function splitToThrees(arr){
 	
-	var newArr = [ [] ];
-	var subsX = 0;
-	var subsY = 0;
-	for(var i in arr){
-		
-		if(i % 3 == 0 && i != 0)
-			{ 
-				subsX++;
-				newArr[subsX] = [];
-				subsY = 0;
-			}
-		
-		newArr[subsX][subsY++] = arr[i];		
-	}
+	if(arr.length % 3 != 0)
+		return new Array();
+	
+	var len = arr.length / 3;
+	var count = 0;
+	var newArr = [];
+	
+	for(var i = 0; i < len; i++){
+			newArr[i] = new Array();
+		for(var j = 0; j < 3; j++){
+			newArr[i][j] = arr[count];
+			count++;
+		}
+	}	
 	return newArr;
 }
 
@@ -102,7 +101,6 @@ function getData(states){
 function getDeckIDs(decks){
 	deckNumbers = decks.split(",");
 	
-	console.log("me second");
 	for(var i in deckNumbers)
 		userDecks[i] = deckNames[deckNumbers[i]];
 }
