@@ -149,12 +149,11 @@ function generateStreamChart2()
             if (!RGraph.isIE8()) {
                 tooltipFunc = function (i)
                 {
-                    var r = i % 4;
+                    var r = i % 3;
                     
-                    if (r == 3) return 'John'
-                    else if (r == 2) return 'Needs Work';
+                    if (r == 2) return 'Correct';
                     else if (r == 1) return 'Unsure';
-                    else if (r == 0) return 'Correct';
+                    else if (r == 0) return 'Needs Work';
                 }
                 chart1.Set('chart.tooltips', tooltipFunc);
             }
@@ -242,12 +241,11 @@ function generateStreamChart2()
             if (!RGraph.isIE8()) {
                 tooltipFunc = function (i)
                 {
-                    var r = i % 4;
+                    var r = i % 3;
                     
-                    if (r == 3) return 'John'
-                    else if (r == 2) return 'Needs Work';
+                    if (r == 2) return 'Correct';
                     else if (r == 1) return 'Unsure';
-                    else if (r == 0) return 'Correct';
+                    else if (r == 0) return 'Needs Work';
                 }
                 chart3.Set('chart.tooltips', tooltipFunc);
             }
