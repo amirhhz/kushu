@@ -21,7 +21,7 @@ exports.createEmptyDeckState = function (){
 exports.updateDeckStateWithPartialAnswers = function(stateOfDeck, partialAnswers){
 	
 	for(var i in partialAnswers){
-		stateOfDeck.answerQueue.push(partialAnswers[i]);	
+		stateOfDeck.answerQueue.push(parseInt(partialAnswers[i]));	
 	}
 	stateOfDeck.state.next_due += partialAnswers.length;
 	
@@ -63,7 +63,6 @@ exports.updateDeckStateWithFullAnswers = function(stateOfDeck){
 		updatedDeckState.state.revision.rev_no = (stateOfDeck.state.revision.rev_no+1);
 		updatedDeckState.state.groups = updatedGroups;
 		while(getLengthOfCurrentRevision(updatedDeckState)==0){
-			console.log(updatedDeckState.state.revision.rev_no);
 			updatedDeckState.state.revision.rev_no++;
 		}
 		return updatedDeckState; 

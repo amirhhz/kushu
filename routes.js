@@ -205,10 +205,6 @@ module.exports = function (app) {
 	
 	app.post("/deck/:deck_id/cards", function(req, res) {
 		
-		console.log("post vars");
-		console.log(req.body.questions);
-		console.log(req.body.answers);
-		
 		var deckId = req.params.deck_id;
 		var questions = req.body.questions;
 		var answers = req.body.answers;

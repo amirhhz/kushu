@@ -56,7 +56,6 @@ exports.insertDeckState = function(userId, deckId, callback) {
 		}
 		var deckState = leitner.createEmptyDeckState();
 		deckState.state.groups[0] = randomizeArray(group);
-		console.log(JSON.stringify(deckState));
 		db.query("INSERT INTO DeckState (USER_ID, DECK_ID, date_modified, serialized_state) VALUES (" + 
 			userId + ", " + deckId + ", " + "CURRENT_TIMESTAMP, ?);", [JSON.stringify(deckState)], function(err, insertResult) {
 				callback(deckState);
@@ -67,8 +66,37 @@ exports.insertDeckState = function(userId, deckId, callback) {
 
 exports.updateDeckState = function(userId, deckId, deckState) {
 
-	db.query("UPDATE DeckState SET serialized_state=?, date_modified=CURRENT_TIMESTAMP WHERE USER_ID=" + 
-			userId + " AND DECK_ID=" + deckId + ";", [JSON.stringify(deckState)]);
+	var makeTheUpdate = function() {
+		db.query("UPDATE DeckState SET serialized_state=?, date_modified=CURRENT_TIMESTAMP WHERE USER_ID=" + 
+			userId + " AND DECK_ID=" + deckId + ";", [JSON.stringify(deckState)]);		
+	}
+
+	if (deckState.answerQueue.length > 0) {
+		makeTheUpdate();
+	} else {
+		exports.getRowsFromTableWhere("Card", "DECK_ID", deckId, function(cardResult){
+
+			var cardsInState = [];
+			for (var i in deckState.state.groups) {
+				cardsInState.concat(deckState.state.groups[i]);
+			}
+			
+			// If new cards have been added to this deck, update deckState data with them
+			if (cardResult.length > cardsInState.length) {
+				var cardsNotInState = [];
+				for (var i in cardResult) {
+					if (cardsInState.indexOf(cardResult[i].CARD_ID) < 0) {
+						cardsNotInState.push(cardResult[i].CARD_ID);
+					}
+				}
+				var newGroup0 = cardsNotInState.concat(deckState.state.groups[0]);
+				deckState.state.groups[0] = newGroup0;
+			}
+			makeTheUpdate();
+		});
+	}
+
+		
 }
 
 exports.getDeckState = function(userId, deckId, callback) {
