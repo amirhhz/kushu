@@ -1,13 +1,33 @@
+<% 
+	if(correctDeckStates != null){
+		var deckStatesString = correctDeckStates.toString();
+		var correctDeckStatesArray = deckStatesString.split(",");
+	}%>
+
 <% for(var i = 0; i < decks.length; i++) { %>
 
 <div id="listDeckContainer">
 	<div id="listDeckImage">
-		<a href="/deck/<%= decks[i].DECK_ID %>"><img src="content/covers/noimage.png" alt="No Image"></a>
+		<a href="/deck/<%= decks[i].DECK_ID %>"><img src="/content/covers/<%= decks[i].deck_image %>" alt="No Image"></a>
 	</div>
 	<div id="listDeckInfo">
 		<a href="/deck/<%=decks[i].DECK_ID %>"><h2><%= decks[i].deck_name %></h2></a>
 		<p><%= decks[i].summary %></p>
 		<h3>Facts: <b><%= decks[i].card_count %></b></h3>
+		
+
+			<% for(var j in deckIdArray){			
+				if(decks[i].DECK_ID == deckIdArray[j]){ %>
+					<div class="deckProgress">
+						<div style="width: <%=parseInt((correctDeckStatesArray[j] / decks[i].card_count) * 100) %>%"><center><%=parseInt((correctDeckStatesArray[j] / decks[i].card_count) * 100) %>%</center></div>
+					</div>
+				<% } %>
+			
+			<%
+			} 
+		    %>
+		
+		<br/>
 		<div id="listDeckControls">
 			<div id="listDeckPlay"><a href="/deck/<%= decks[i].DECK_ID %>">Play</a></div>
 			<div id="listDeckBrowse"><a href="/deck/<%= decks[i].DECK_ID %>/cards">Browse</a></div>

@@ -41,6 +41,7 @@ module.exports = function (app) {
 	
 	app.get("/logout", function (req, res) {
 		req.session.username = null;
+		req.session.user_id = null;
 		res.redirect("/");
 		res.end();
 	});
@@ -230,23 +231,43 @@ module.exports = function (app) {
 	
 	app.get("/decks", function (req, res) {
 		
+		var userId = req.session.user_id;
+		
 		var queryMap = {
 			allDecks: "SELECT * FROM Deck ORDER BY DECK_ID ASC;",
-			cardCounts: "SELECT DECK_ID, COUNT(*) AS card_count FROM Card GROUP BY DECK_ID ORDER BY DECK_ID ASC;"
+			cardCounts: "SELECT DECK_ID, COUNT(*) AS card_count FROM Card GROUP BY DECK_ID ORDER BY DECK_ID ASC;",
+			deckStates: "SELECT * FROM DeckState WHERE USER_ID="+userId+" ORDER BY DECK_ID ASC;"
 		};
 		
 		app.models.performQueries(queryMap, function(result) {
 			var decks = result["allDecks"];
 			var countResults = result["cardCounts"];
+			var deckStates = result["deckStates"];
 			
 			for(var index in decks){
 				decks[index].card_count = countResults[index].card_count;
 			}
 			
+			var correctStatesArray = [];
+			var deckIdArray = [];
+				
+			for(var i in deckStates){
+				var dState = JSON.parse(deckStates[i]["serialized_state"]);
+				var bucketLength = dState.state.groups[2].length;
+				correctStatesArray[i] = bucketLength;
+				deckIdArray[i] = deckStates[i].DECK_ID;
+			}
+			
+			if(!userId){
+				userId = null;
+				correctStatesArray = null;
+			}	
+			
+			
 			if(req.query.format) {
 				req.query.format == "json" ? res.json(decks) : res.send(404);
 			} else {
-				res.render("decks", {decks: decks, title: "Decks"});				
+				res.render("decks", {decks: decks, title: "Decks", correctDeckStates: correctStatesArray, deckIdArray: deckIdArray});				
 			}
 		});
 	});	

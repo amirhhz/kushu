@@ -138,6 +138,23 @@ p{
 	font-family: arial,sans-serif;
 }
 
+.deckProgress{
+	border: 1px solid #CCC;
+	width: 225px;
+	margin: 2px 5px 2px 0;
+	padding: 1px;
+	float: left;
+	background: white;
+}
+
+.deckProgress > div {
+	font-size: 9px;
+	font-weight: bold;
+	color:#FFF;
+  	background-color: #008000; 
+  	height: 12px
+}
+
 #listDeckImage{
 	width:100px;
 	height:100px;
