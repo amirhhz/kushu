@@ -25,3 +25,11 @@ ChartGenTest.prototype.testSplitToThreesReturnsEmptyArrayForIncorrectData = func
 
 	assertTrue(emptyArray.compareArrays(splitToThrees(longArray)));	
 }
+
+ChartGenTest.prototype.testPieChartPercentagesAreGeneratedCorrectly = function(){
+	var dStats = [  [3,5,2] , [6,10,4], [3,5,2] ];
+	var testArray = [30,50,20];
+	alert(getPieData(dStats));
+	assertTrue(testArray.compareArrays(getPieData(dStats)));	
+}
+
