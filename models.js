@@ -55,7 +55,7 @@ exports.insertDeckState = function(userId, deckId, callback) {
 			group.push(result[card].CARD_ID);
 		}
 		var deckState = leitner.createEmptyDeckState();
-		deckState.state.groups[0] = group;
+		deckState.state.groups[0] = randomizeArray(group);
 		console.log(JSON.stringify(deckState));
 		db.query("INSERT INTO DeckState (USER_ID, DECK_ID, date_modified, serialized_state) VALUES (" + 
 			userId + ", " + deckId + ", " + "CURRENT_TIMESTAMP, ?);", [JSON.stringify(deckState)], function(err, insertResult) {
@@ -102,5 +102,12 @@ exports.endClient = function(callback){
 	db.end(callback);
 }
 
-
-
+var randomizeArray = function(array) {
+	var randomized = [];
+	while (array.length !== 0) {
+		var randIndex = Math.floor(Math.random()*array.length);
+		var item = array.splice(randIndex, 1);
+		randomized.push(item[0]);
+	}
+	return randomized;
+}
