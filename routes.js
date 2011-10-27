@@ -174,20 +174,62 @@ module.exports = function (app) {
 	
 	app.get("/deck/:deck_id/cards", function (req, res) {		
 
-		var deckId = req.params.deck_id;				
-		var deck = [];
-		app.models.getRowsFromTableWhere("Card", "DECK_ID" ,deckId, function(resultCards){
-			
-			for(var i in resultCards){
-				deck.push({ "q" : resultCards[i].front,
-							"a" : resultCards[i].back 
-				});
+		var isDeckOwner = false;
+		var userId = req.session.user_id;
+		if(!userId){
+			userId = null;
+		}
+		
+		app.models.getRowsFromTableWhere("Deck", "OWNER_USERID",userId, function(resultOwner){
+			if(resultOwner.length != 0){
+				isDeckOwner = true;
 			}
-			app.models.db.query("SELECT deck_name FROM Deck WHERE DECK_ID=?;", [deckId], function(err, result){
-				var deckTitle = result[0].deck_name;
-				res.render('cards', {title: deckTitle, deck: deck});						
-			});			
+			
+			var deckId = req.params.deck_id;				
+			var deck = [];
+			app.models.getRowsFromTableWhere("Card", "DECK_ID" ,deckId, function(resultCards){
+				
+				for(var i in resultCards){
+					deck.push({ "q" : resultCards[i].front,
+								"a" : resultCards[i].back 
+					});
+				}
+				app.models.db.query("SELECT deck_name FROM Deck WHERE DECK_ID=?;", [deckId], function(err, result){
+					var deckTitle = result[0].deck_name;
+					res.render('cards', {title: deckTitle, deck: deck, deckId: deckId, deckOwner: isDeckOwner});						
+				});			
+			});
+			
+		});	
+	});
+	
+	app.post("/deck/:deck_id/cards", function(req, res) {
+		
+		console.log("post vars");
+		console.log(req.body.questions);
+		console.log(req.body.answers);
+		
+		var deckId = req.params.deck_id;
+		var questions = req.body.questions;
+		var answers = req.body.answers;
+		
+		var queryMap = [];
+		for(var i in questions){
+
+			queryMap.push("INSERT INTO Card "
+						+ "(DECK_ID, front, back) "
+						+ "VALUES("+deckId+ "," 
+								 +"'"+questions[i]+"',"
+								 +"'"+answers[i]+"'"
+								 +");");
+		}
+		
+		
+		app.models.performQueries(queryMap, function(result){
+			console.log(result);
+			res.redirect("/deck/"+deckId+"/cards");
 		});
+		
 	});
 	
 	app.get("/decks", function (req, res) {

@@ -16,5 +16,58 @@
 		</tr>
 	<% } %>
 	</table>
+	<br/>
+	<% if(deckOwner){ %>
+	<div id="addRowForm" >
+		<br/> <input type="button" onclick="refreshForm()" value="Add Row" />
+	</div>
+	<% } %>
+	
+	<script type="text/javascript">
+		var rows=0; 
+		function refreshForm(){
+			rows++;
+			var replaceHtml="";
+			for(var i=0; i<rows; i++){
+				var n=(i+1);
+				if(i<(rows-1)){
+					replaceHtml += "<br/> Question: <input type='text' id='questionText"+n+"' value='"
+					+ document.getElementById(("questionText"+n)).value+ "' /> Answer: <input type='text' id='answerText"+n+"' value='"
+					+ document.getElementById(("answerText"+n)).value+"'/>";
+				}else{
+					replaceHtml += "<br/> Question: <input type='text' id='questionText"+n+"' /> Answer: <input type='text' id='answerText"+n+"'/>";
+					
+				}
+			}
+			replaceHtml += "<br/> <input type='button' onclick='refreshForm()' value='Add Row' />" 
+			+ "<input type='button' value='Submit Changes' onclick='postQuestionAnswerArrays()'/>";
+			document.getElementById("addRowForm").innerHTML = replaceHtml;
+		}
+		
+		
+		function postQuestionAnswerArrays(){
+			var questions = [];
+			var answers = [];
+			
+			for(var i=0; i<rows; i++){
+				var n = i+1;
+				var ques = document.getElementById(("questionText"+n)).value;
+				var ans = document.getElementById(("answerText"+n)).value;
+				if(ques && ans){
+					questions.push(ques);
+					answers.push(ans); 
+				}
+			}
+			
+			if(questions.length != 0){
+				$.post("/deck/"+<%= deckId %>+"/cards", { 'questions':questions, 'answers':answers}, function(data, status, j){
+					window.location="/deck/"+<%= deckId %>+"/cards";
+				});
+			}else{
+				alert("Please fill in all fields before submitting");
+			}
+		}
+		
+	</script>
 </div>
 </center>
