@@ -80,7 +80,7 @@ exports.getDeckState = function(userId, deckId, callback) {
 
 exports.getAllDecksState = function(userId, callback) {
 
-	db.query("SELECT * FROM DeckState WHERE USER_ID="+userId+";", function(err, result) {
+	db.query("SELECT * FROM DeckState WHERE USER_ID="+userId+" ORDER BY DECK_ID ASC;", function(err, result) {
 		callback(result);
 	});
 }
