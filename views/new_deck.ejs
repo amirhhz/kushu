@@ -1,22 +1,15 @@
 
 <center>
-<% messages() %>
-
-<% if(usedName) { %>
-	<br/>
-	*That Deck name is already in use, Please choose a different name
-<% } %>
+<%- messages() %>
 <h1><%= title %></h1>
 </br>
 <div id="deckBuilder">
-	
-	
-	<form id="addRowForm" method="POST" href="/buildDeck">
+	<form id="addRowForm" method="POST" href="/decks/new">
 		
 		Deck name: <input type="text" id="nameOfDeck" name="nameOfDeck" value=' <% if(usedName){ %>  <%= oldName %>  <% } %> '/> <br/>
 		  Summary: <input type="text" id="summary" name="summary" value=' <% if(usedName){ %>  <%= oldSummary %>  <% } %> '/> <br/>
 	   Reversible: <input type="checkbox" id="reversible" name="reversible"/>
-		<input type='submit' value='Create this deck!!!' />
+		<input type='submit' value='Create this deck!' />
 	</form>	
 	
 

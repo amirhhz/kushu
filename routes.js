@@ -172,8 +172,8 @@ module.exports = function (app) {
 		//TODO: should verify existence of answers and deck_id
 		var userId = req.session.user_id;
 		var deckId = req.params.deck_id;
-		var answers = req.body.answers;
-		
+		var answers = (req.body) ? req.body.answers : [] ;
+
 		app.models.getDeckState(userId, deckId, function(result){
 			var currState = JSON.parse(result[0].serialized_state);
 			
@@ -233,7 +233,6 @@ module.exports = function (app) {
 		
 		
 		app.models.performQueries(queryMap, function(result){
-			console.log(result);
 			res.redirect("/deck/"+deckId+"/cards");
 		});
 		
@@ -285,18 +284,17 @@ module.exports = function (app) {
 		});
 	});
 	
-	app.get("/buildDeck", function (req, res) {
+	app.get("/decks/new", function (req, res) {
 		if(req.session.user_id){
-			res.render("buildDeck", {title: "Build a deck", usedName: false});
+			res.render("new_deck", {title: "Build a deck", usedName: false});
 		}else{
 			req.session.takeMeTo = req.path;
 			res.redirect("/login");
 		}
 	});	
 	
-	app.post("/buildDeck", function (req, res) {
+	app.post("/decks/new", function (req, res) {
 		
-		console.log(req.body.nameOfDeck);
 		var isNameInUse = true;
 		var oldName = (req.body.nameOfDeck).replace(/^\s+|\s+$/g, '');
 		var summary = req.body.summary;
@@ -308,25 +306,21 @@ module.exports = function (app) {
 		
 		var userId = req.session.user_id;
 		
-		app.models.getRowsFromTableWhere("Deck","deck_name",("'"+oldName+"';"), function(nameAlreadyInDBresult){
+		app.models.db.query("SELECT * FROM Deck WHERE deck_name=?;", [oldName], function(err, nameAlreadyInDBresult){
 			
 			if(nameAlreadyInDBresult.length>0){
-					res.render("buildDeck", {title: "Build a deck", usedName: isNameInUse, oldName: oldName, oldSummary: summary});
+				req.flash("error", "That Deck name is already in use, Please choose a different name.");
+				res.redirect("/decks/new");
 			}else{
-				console.log(oldName);
-				console.log(summary);
-				console.log(reversible);
-				app.models.db.query("INSERT INTO Deck (OWNER_USERID, deck_name, summary, reversible) VALUES("+ req.session.user_id +","+ ("'"+oldName+"'")+","+ ("'"+summary+"'")+","+ reversible+  ");", function(err, insertResult){
-					console.log("inserted");
-					console.log(err);
-					console.log(insertResult);
-					app.models.getRowsFromTableWhere("Deck","deck_name",("'"+oldName+"'"), function(result){
+				app.models.db.query("INSERT INTO Deck (OWNER_USERID, deck_name, summary, reversible) VALUES(?, ?, ?, ?);",
+				[req.session.user_id, oldName, summary, reversible], function(err, insertResult){
+					app.models.db.query("SELECT DECK_ID, deck_name FROM Deck WHERE deck_name=?;", [oldName], function(err, result){
 						
 						if(result.length > 0){
 							var latestDeckId = result[0].DECK_ID;
-							res.render("/deck/"+latestDeckId+"/cards");
-						}else{
-							console.log("canr ");		
+							res.redirect("/deck/"+latestDeckId+"/cards");
+						}else{							
+							//TODO: DIDN'T INSERT!
 						}
 					});
 				});

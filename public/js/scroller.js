@@ -131,6 +131,8 @@ function saveAndExit(){
 
 function postAnswersAndRedirect() {
 	// deckId should be set in the EJS template
-	$.post("/deck/"+deckId, { 'answers': listOfCurrentResponses });
-	window.location="/decks";
+	if (listOfCurrentResponses) {
+		$.post("/deck/"+deckId, { 'answers': listOfCurrentResponses });
+	}
+	window.location.href="/decks";
 }
