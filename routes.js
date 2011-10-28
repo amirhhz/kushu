@@ -255,7 +255,11 @@ module.exports = function (app) {
 			var deckStates = result["deckStates"];
 			
 			for(var index in decks){
-				decks[index].card_count = countResults[index].card_count;
+				if (countResults[index]) {
+					decks[index].card_count = countResults[index].card_count;					
+				} else {
+					decks[index].card_count = 0;
+				}
 			}
 			
 			var correctStatesArray = [];

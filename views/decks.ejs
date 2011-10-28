@@ -29,7 +29,11 @@
 		
 		<br/>
 		<div id="listDeckControls">
-			<div id="listDeckPlay"><a href="/deck/<%= decks[i].DECK_ID %>">Play</a></div>
+			<% if (decks[i].card_count > 0) { %>
+				<div id="listDeckPlay"><a href="/deck/<%= decks[i].DECK_ID %>">Play</a></div>
+			<% } else { %>
+				<div id="listDeckPlay"><a href="#" title="The deck is empty, click Browse and add some cards to play"><em>Empty</em></a></div>
+			<% } %>
 			<div id="listDeckBrowse"><a href="/deck/<%= decks[i].DECK_ID %>/cards">Browse</a></div>
 			<div id="listDeckRemove"><a href="#">Remove</a></div>
 			<div id="listDeckMore"><a href="#">More +</a></div>
