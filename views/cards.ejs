@@ -18,8 +18,11 @@
 	</table>
 	<br/>
 	<% if(deckOwner){ %>
-	<div id="addRowForm" >
-		<br/> <input type="button" onclick="refreshForm()" value="Add Row" />
+	<div id="listDeckControls">
+		<div id="addRowForm" >
+			<br/> 
+			<div id="listDeckAdd"><button type="button" onclick="refreshForm()" value="Add Row">Add Row</button</div>
+		</div>
 	</div>
 	<% } %>
 	
@@ -39,8 +42,8 @@
 					
 				}
 			}
-			replaceHtml += "<br/> <input type='button' onclick='refreshForm()' value='Add Row' />" 
-			+ "<input type='button' value='Submit Changes' onclick='postQuestionAnswerArrays()'/>";
+			replaceHtml += "<br/><br/><button type='button' onclick='refreshForm()' value='Add Row'>Add Row</button>" 
+			+ "<button type='button' value='Submit Changes' onclick='postQuestionAnswerArrays()'>Submit Changes</button>";
 			document.getElementById("addRowForm").innerHTML = replaceHtml;
 		}
 		
