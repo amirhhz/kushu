@@ -168,6 +168,11 @@ p{
 	height:100px;
 }
 
+#listDeckAdd{
+	padding-top:20px;
+	padding-bottom:50px;
+}
+
 #listDeckContainer{
 	margin-top:20px;
 	min-height:100px;
