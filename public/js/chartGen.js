@@ -1,4 +1,3 @@
-/* temp deck names array - need to be grabbed from the decks tables*/
 
 var deckNames = [""];
 var deckNumbers;
@@ -80,6 +79,9 @@ function getPieData(dStats){
 	
 }
 
+/*
+ * sums the elements of an array
+ */
 Array.prototype.sum = function(){
 	var sum = 0;
 	for(var i = 0; i < this.length; i++){
@@ -88,6 +90,10 @@ Array.prototype.sum = function(){
 	return sum;
 }
 
+/*
+ * converts the values in a 2 dimensional array so each sub array will hold the percentage of 
+ * the total amount in the given array
+ */
 function convertToPercentages(twoDimArr){
 	var newArray = [];
 	
@@ -112,6 +118,7 @@ function getData(states){
 		statArray[i] = parseInt(statArray[i]);
 	
 	var arrayOfCards = splitToThrees(statArray);
+	
 	deckStats = convertToPercentages(arrayOfCards);
 	cardPercentages = getPieData(deckStats);
 	
@@ -136,10 +143,17 @@ function showDiv(divID){
 
 function generateStreamChart2()
         {	
+	
+			if(deckStats.length == 0){
+					return 0;
+			}
+	
 			showDiv('chartDiv1');
 
             var chart1 = new RGraph.Bar('chart1', deckStats );
             chart1.Set('chart.title', 'Deck Progress');
+            chart1.Set('chart.text.font', 'Arial Bold');
+            chart1.Set('chart.text.size', 10);
             chart1.Set('chart.title.vpos', 0.5);
             chart1.Set('chart.colors', ['#c0504d', '#4f81bd', '#9bbb59']);
             chart1.Set('chart.gutter.left', 40);
@@ -186,6 +200,11 @@ function generateStreamChart2()
         }
 		
 		function generatePie(){
+			
+			if(deckStats.length == 0){
+				return 0;
+			}
+				
 			showDiv('chartDiv2');
 			
 		    var chart2 = new RGraph.Pie('chart2', cardPercentages); // Create the pie object
