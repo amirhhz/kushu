@@ -273,7 +273,6 @@ module.exports = function (app) {
 				correctStatesArray = null;
 			}	
 			
-			
 			if(req.query.format) {
 				req.query.format == "json" ? res.json(decks) : res.send(404);
 			} else {
@@ -283,7 +282,32 @@ module.exports = function (app) {
 	});
 	
 	app.get("/buildDeck", function (req, res) {
-		res.render("buildDeck", {title: "Build a deck"});
+		if(req.session.user_id){
+			res.render("buildDeck", {title: "Build a deck", usedName: false});
+		}else{
+			req.session.takeMeTo = req.path;
+			res.redirect("/login");
+		}
+	});	
+	
+	app.post("/buildDeck", function (req, res) {
+		
+		console.log(req.body.nameOfDeck);
+		var isNameInUse = true;
+		var oldName = req.body.nameOfDeck;
+	
+		app.models.getRowsFromTableWhere("Deck","deck_name",("'"+oldName+"'"), function(result){
+			
+			if(result.length>0){
+				console.log("name in use");
+				res.render("buildDeck", {title: "Build a deck", usedName: isNameInUse, oldName: oldName});
+			}else{
+				app.models.db.query("", function(err, result){
+					
+				});
+			}
+		})
+		
 	});	
 };
 
