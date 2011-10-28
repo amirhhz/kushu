@@ -10,7 +10,13 @@ module.exports = function (app) {
 
 	app.get("/login", function (req, res, next) {
 		if (req.session.username) {
-			res.redirect("/index");
+			if (req.session.takeMeTo) {
+				var destination = req.session.takeMeTo;
+				req.session.takeMeTo = null;
+				res.redirect(destination);
+			} else {
+				res.redirect("home");
+			}
 		} else {
 			res.render("login", {title: "Login"});			
 		}
@@ -47,7 +53,7 @@ module.exports = function (app) {
 	});
 	
 	app.get("/index", function (req, res) {
-		res.render("index", {title: "Home"});
+		res.redirect("home");
 	});
 	
 	app.get("/about", function (req, res) {
@@ -58,6 +64,7 @@ module.exports = function (app) {
 		var userId = req.session.user_id;
 		
 		if (!userId) {
+			req.session.takeMeTo = req.path;
 			res.redirect("/login");
 		} else {
 			app.models.getAllDecksState(userId, function(result){				
@@ -112,6 +119,7 @@ module.exports = function (app) {
 		var deckId = req.params.deck_id;
 		var userId = req.session.user_id;		
 		if (!userId) {
+			req.session.takeMeTo = req.path;
 			res.redirect("/login");
 		} else {
 			
@@ -168,7 +176,9 @@ module.exports = function (app) {
 		
 		app.models.getDeckState(userId, deckId, function(result){
 			var currState = JSON.parse(result[0].serialized_state);
-			var updatedState = leitner.updateDeckStateWithPartialAnswers(currState, answers);			
+			
+			var updatedState = leitner.updateDeckStateWithPartialAnswers(currState, answers);
+
 			app.models.updateDeckState(userId, deckId, updatedState);
 		});
 	});
