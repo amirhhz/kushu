@@ -298,16 +298,37 @@ module.exports = function (app) {
 		
 		console.log(req.body.nameOfDeck);
 		var isNameInUse = true;
-		var oldName = req.body.nameOfDeck;
-	
-		app.models.getRowsFromTableWhere("Deck","deck_name",("'"+oldName+"'"), function(result){
+		var oldName = (req.body.nameOfDeck).replace(/^\s+|\s+$/g, '');
+		var summary = req.body.summary;
+		
+		var reversible = 0; 
+		if(req.body.reversible){
+			reversible = 1; 
+		}	
+		
+		var userId = req.session.user_id;
+		
+		app.models.getRowsFromTableWhere("Deck","deck_name",("'"+oldName+"';"), function(nameAlreadyInDBresult){
 			
-			if(result.length>0){
-				console.log("name in use");
-				res.render("buildDeck", {title: "Build a deck", usedName: isNameInUse, oldName: oldName});
+			if(nameAlreadyInDBresult.length>0){
+					res.render("buildDeck", {title: "Build a deck", usedName: isNameInUse, oldName: oldName, oldSummary: summary});
 			}else{
-				app.models.db.query("", function(err, result){
-					
+				console.log(oldName);
+				console.log(summary);
+				console.log(reversible);
+				app.models.db.query("INSERT INTO Deck (OWNER_USERID, deck_name, summary, reversible) VALUES("+ req.session.user_id +","+ ("'"+oldName+"'")+","+ ("'"+summary+"'")+","+ reversible+  ");", function(err, insertResult){
+					console.log("inserted");
+					console.log(err);
+					console.log(insertResult);
+					app.models.getRowsFromTableWhere("Deck","deck_name",("'"+oldName+"'"), function(result){
+						
+						if(result.length > 0){
+							var latestDeckId = result[0].DECK_ID;
+							res.render("/deck/"+latestDeckId+"/cards");
+						}else{
+							console.log("canr ");		
+						}
+					});
 				});
 			}
 		})
