@@ -13,6 +13,10 @@
 	  			<% if (math) { %>
 	  				<% deck[i].q = math.q; deck[i].a = math.a; %>
   				<% } %>
+	  			<% var alphaMath = generateAlphaMathQA(deck[i].q); %>
+	  			<% if (alphaMath) { %>
+	  				<% deck[i].q = alphaMath.q; deck[i].a = alphaMath.a; %>
+  				<% } %>  				
 				<!-- Question -->
 				<div class="scrollEl">
 					<div class="questionBox">

@@ -69,6 +69,37 @@ app.helpers({
 		} else {
 			return null;
 		}
+	},
+	
+	generateAlphaMathQA: function(question) {
+		var ALPHABET = [
+			"A","B","C","D",
+			"E","F","G","H",
+			"I","J","K","L",
+			"M","N","O","P",
+			"Q","R","S","T",
+			"U","V","W","X",
+			"Y","Z"
+			];
+		var MAX_ARG = ALPHABET.length;
+		
+		var alphaMathPattern = new RegExp("^@([+\-])@$", "i");
+		var match = alphaMathPattern.exec(question);
+		if(match) {
+			var opCode = " " + match[1] + " ";
+			var arg1 = Math.floor(Math.random()*MAX_ARG);
+			var arg2 = Math.floor(Math.random()*MAX_ARG);
+			
+			var question = arg1 + opCode + arg2;
+			var answer = eval(question);
+			answer = (answer + (MAX_ARG)) % (MAX_ARG); // the addition is to fix negative results
+	
+			var answerText = ALPHABET[answer];
+			var questionText = ALPHABET[arg1] + opCode + ALPHABET[arg2];
+			return {q: questionText, a: answerText};
+		} else {
+			return null;
+		}		
 	}	
 });
 
