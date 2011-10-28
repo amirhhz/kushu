@@ -40,6 +40,13 @@ ChartGenTest.prototype.testSplitToThreesReturnsEmptyArrayForIncorrectData = func
 	assertTrue(emptyArray.compareArrays(splitToThrees(longArray)));	
 }
 
+ChartGenTest.prototype.testSplitToThreesWillReturnEmptyArray = function(){
+	var longArray = [];
+	var emptyArray = new Array();
+
+	assertTrue(emptyArray.compareArrays(splitToThrees(longArray)));	
+}
+
 ChartGenTest.prototype.testPieChartPercentagesAreGeneratedCorrectly = function(){
 	var dStats = [  [3,5,2] , [6,10,4], [3,5,2] ];
 	var expectedArray = [30,50,20];
