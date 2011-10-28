@@ -110,7 +110,7 @@ app.dynamicHelpers({
 	messages: require('express-messages')
 });
 
-models.startClient("kushu_test");
+models.startClient("kushu_test", "root", "hushu");
 app.models = models;
 
 // Routes

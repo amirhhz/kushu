@@ -112,12 +112,15 @@ exports.getAllDecksState = function(userId, callback) {
 	});
 }
 
-exports.startClient = function(dbname){
+exports.startClient = function(dbname, user, password){
+	
+	var dbuser = user || "root";
+	var dbpassword = password || "";
 	
 	if((!db) || !db.connected){
 		db = new MYSQL.createClient({
-		  user: 'root',
-		  password: 'hushu',
+		  user: dbuser,
+		  password: dbpassword,
 		  database: dbname,
 		});
 	}
