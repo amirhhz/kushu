@@ -70,3 +70,9 @@ ChartGenTest.prototype.testPieChartPercentagesAreGeneratedForArrayOfZeros = func
 	var expectedArray = [25,25,50];
 	assertTrue(expectedArray.compareArrays(getPieData(dStats)));	
 }
+
+ChartGenTest.prototype.testPieChartPercentagesAreGeneratedWithSingleArrayOfZeros = function(){
+	var dStats = [  [1,0,0] , [0,0,1] , [0,0,0], [0,1,1] ];
+	var expectedArray = [25,25,50];
+	assertTrue(expectedArray.compareArrays(getPieData(dStats)));	
+}
