@@ -223,12 +223,9 @@ module.exports = function (app) {
 		var queryMap = [];
 		for(var i in questions){
 
-			queryMap.push("INSERT INTO Card "
-						+ "(DECK_ID, front, back) "
-						+ "VALUES("+deckId+ "," 
-								 +"'"+questions[i]+"',"
-								 +"'"+answers[i]+"'"
-								 +");");
+			var safeSql = app.models.db.format("INSERT INTO Card (DECK_ID, front, back) VALUES (?, ?, ?)", 
+				[ deckId, questions[i], answers[i] ]);
+			queryMap.push(safeSql);
 		}
 		
 		
