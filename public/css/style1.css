@@ -155,6 +155,10 @@ p{
   	height: 12px
 }
 
+#deckBuilder tr{
+	height:30px;
+}
+
 #listDeckImage{
 	width:100px;
 	height:100px;

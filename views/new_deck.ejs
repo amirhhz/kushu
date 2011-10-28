@@ -4,14 +4,27 @@
 <h1><%= title %></h1>
 </br>
 <div id="deckBuilder">
-	<form id="addRowForm" method="POST" href="/decks/new">
-		
-		Deck name: <input type="text" id="nameOfDeck" name="nameOfDeck" value=' <% if(usedName){ %>  <%= oldName %>  <% } %> '/> <br/>
-		  Summary: <input type="text" id="summary" name="summary" value=' <% if(usedName){ %>  <%= oldSummary %>  <% } %> '/> <br/>
-	   Reversible: <input type="checkbox" id="reversible" name="reversible"/>
-		<input type='submit' value='Create this deck!' />
-	</form>	
-	
+	<table>
+		<form id="addRowForm" method="POST" href="/decks/new">
+			<tr>
+				<td>Deck name:</td> 
+				<td><input type="text" id="nameOfDeck" name="nameOfDeck" value='<% if(usedName){ %>  <%= oldName %>  <% } %>'/></td>
+			</tr>
+			<tr>
+				<td>Summary:</td>
+				<td><input type="text" id="summary" name="summary" value='<% if(usedName){ %>  <%= oldSummary %>  <% } %>'/></td>
+			</tr>
+		   	<tr>
+				<td>Reversible:</td>
+				<td><input type="checkbox" id="reversible" name="reversible"/></td>
+			</tr>
+			<tr>
+			<td colspan="2"><div id="listDeckControls">
+				<div id="listDeckAdd"><button type="submit" value="Create this deck!">Create this deck!</button></div>
+			</div></td>
+			</tr>
+		</form>	
+	</table>
 
 </div>
 </center>
