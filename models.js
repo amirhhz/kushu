@@ -78,9 +78,8 @@ exports.updateDeckState = function(userId, deckId, deckState) {
 
 			var cardsInState = [];
 			for (var i in deckState.state.groups) {
-				cardsInState.concat(deckState.state.groups[i]);
+				cardsInState = cardsInState.concat(deckState.state.groups[i]);
 			}
-			
 			// If new cards have been added to this deck, update deckState data with them
 			if (cardResult.length > cardsInState.length) {
 				var cardsNotInState = [];
