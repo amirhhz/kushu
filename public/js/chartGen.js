@@ -66,10 +66,10 @@ function getPieData(dStats){
 	var unsure = 0;
 	var correct = 0;
 	
-	for(i in dStats){
+	for(var i = 0; i < dStats.length; i++){
 		needsWork += dStats[i][0];
 		unsure += dStats[i][1];
-		correct += dStats[i][2];		
+		correct += dStats[i][2];
 	}
 	
 	var total = needsWork + unsure + correct;
@@ -78,6 +78,27 @@ function getPieData(dStats){
 	
 	return percentages;
 	
+}
+
+Array.prototype.sum = function(){
+	var sum = 0;
+	for(var i = 0; i < this.length; i++){
+		sum += this[i];
+	}
+	return sum;
+}
+
+function convertToPercentages(twoDimArr){
+	var newArray = [];
+	
+	for(var i = 0; i < twoDimArr.length; i++){
+		var total = twoDimArr[i].sum();
+		newArray[i] = [];
+		for(var j = 0; j < twoDimArr[i].length; j++){
+			newArray[i][j] =  parseInt((twoDimArr[i][j]/total) * 100) ;			
+		}
+	}
+	return newArray;	
 }
 
 /*
@@ -90,7 +111,8 @@ function getData(states){
 	for(var i in statArray)
 		statArray[i] = parseInt(statArray[i]);
 	
-	deckStats = splitToThrees(statArray);
+	var arrayOfCards = splitToThrees(statArray);
+	deckStats = convertToPercentages(arrayOfCards);
 	cardPercentages = getPieData(deckStats);
 	
 	chartLabels[0] += " " + parseInt(cardPercentages[0]) + "%";
@@ -119,7 +141,7 @@ function generateStreamChart2()
             var chart1 = new RGraph.Bar('chart1', deckStats );
             chart1.Set('chart.title', 'Deck Progress');
             chart1.Set('chart.title.vpos', 0.5);
-            chart1.Set('chart.colors', ['purple', 'blue', 'green']);
+            chart1.Set('chart.colors', ['#c0504d', '#4f81bd', '#9bbb59']);
             chart1.Set('chart.gutter.left', 40);
             chart1.Set('chart.gutter.right', 5);
             chart1.Set('chart.gutter.top', 40);
@@ -169,6 +191,7 @@ function generateStreamChart2()
 		    var chart2 = new RGraph.Pie('chart2', cardPercentages); // Create the pie object
             chart2.Set('chart.labels', chartLabels);
             chart2.Set('chart.labels.sticks', true);
+            chart2.Set('chart.colors', ['#c0504d', '#4f81bd', '#9bbb59']);
             chart2.Set('chart.gutter.left', 35);
             chart2.Set('chart.gutter.right', 35);
             chart2.Set('chart.gutter.top', 50);
@@ -210,7 +233,7 @@ function generateStreamChart2()
             //chart3.Set('chart.units.pre', '$');
             chart3.Set('chart.title', '1Wk Progress (cards viewed)');
             chart3.Set('chart.title.vpos', 0.5);
-            chart3.Set('chart.colors', ['red', 'blue', 'green']);
+            chart3.Set('chart.colors', ['#c0504d', '#4f81bd', '#9bbb59']);
             chart3.Set('chart.gutter.left', 40);
             chart3.Set('chart.gutter.right', 5);
             chart3.Set('chart.gutter.top', 40);
