@@ -122,6 +122,8 @@ function getData(states){
 	deckStats = convertToPercentages(arrayOfCards);
 	cardPercentages = getPieData(deckStats);
 	
+	cardPercentages[0] = Math.ceil(cardPercentages[0]);
+	
 	for(var i = 0; i < 3; i++){
 		if(cardPercentages[i] >= 1)
 			chartLabels[i] += " " + parseInt(cardPercentages[i]) + "%";
