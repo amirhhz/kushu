@@ -122,9 +122,13 @@ function getData(states){
 	deckStats = convertToPercentages(arrayOfCards);
 	cardPercentages = getPieData(deckStats);
 	
-	chartLabels[0] += " " + parseInt(cardPercentages[0]) + "%";
-	chartLabels[1] += " " + parseInt(cardPercentages[1]) + "%";
-	chartLabels[2] += " " + parseInt(cardPercentages[2]) + "%";
+	for(var i = 0; i < 3; i++){
+		if(cardPercentages[i] >= 1)
+			chartLabels[i] += " " + parseInt(cardPercentages[i]) + "%";
+		
+		else
+			chartLabels[i] = "";
+ 	}
 }
 
 function getDeckIDs(decks){
@@ -156,7 +160,7 @@ function generateStreamChart2()
             chart1.Set('chart.text.size', 10);
             chart1.Set('chart.title.vpos', 0.5);
             chart1.Set('chart.colors', ['#c0504d', '#4f81bd', '#9bbb59']);
-            chart1.Set('chart.gutter.left', 40);
+            chart1.Set('chart.gutter.left', 5);
             chart1.Set('chart.gutter.right', 5);
             chart1.Set('chart.gutter.top', 40);
             chart1.Set('chart.gutter.bottom', 60);
