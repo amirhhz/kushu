@@ -1,7 +1,6 @@
 [This repository was imported from a p4 depot]
-
 # Kushu
-![Kushu logo](https://github.com/amirhhz/kushu/blob/master/public/images/header_logo.png)
+![Kushu logo](https://github.com/amirhhz/kushu/raw/master/public/images/header_logo.png)
 
 Kushu is an for learning facts with flashcards. It uses a simple implementation of [spaced repitition](http://en.wikipedia.org/wiki/Spaced_repetition) learning called the [Leitner system](http://en.wikipedia.org/wiki/Leitner_system).
 
